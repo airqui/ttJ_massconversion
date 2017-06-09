@@ -1,0 +1,139 @@
+#
+# Initialize standard model parameters ...
+# hcq = 0.000389379
+#
+# StandardModelParameters: Renormalization scale = 170
+#
+#
+# StandardModelParameters: Factorization scale = 170
+#
+#
+# StandardModelParameters: Internal scale = 170
+#
+#
+# StandardModelParameters: SinusThetaWeinbergSquared = 0.222124
+#
+#
+# -------------------------------------------------------------
+#    Started: Mon Dec 14 09:57:57 2015
+#        Pid: 90475
+# Nice level: 0
+#
+# qsub job id: 2344411
+#
+# Running on: bird638.desy.de
+# -------------------------------------------------------------
+#
+# ./main.exe --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --subtractions --proc 24 --ktmin 50 --vegaspoints 10000 --dist 
+# 
+#
+# StandardModelParameters: Renormalization scale = 170
+#
+#
+# StandardModelParameters: Factorization scale = 170
+#
+#
+# StandardModelParameters: Internal scale = 170
+#
+#
+# StandardModelParameters: Renormalization scale = 166
+#
+#
+# StandardModelParameters: Factorization scale = 166
+#
+#
+# StandardModelParameters: Internal scale = 166
+#
+# Set mass 166
+# Set RenormalizationScale 166
+# Set FactorizationScale 166
+#
+# StandardModelParameters: Renormalization scale = 83
+#
+#
+# StandardModelParameters: Factorization scale = 83
+#
+# Scale set to 83
+# Evaluate process 24
+#
+# ktmin set to 50
+#
+# Vegas point for integrations set to 10000
+ LHAPDF /nfs/dust/ilc/user/airqui/ttJ/uwer_calc/lhapdf/PDFsets/PDFsets/ CT10.LHgrid
+# Init LHAPDF: CT10.LHgrid
+# Init LHAPDF: CT10.LHgrid
+# LHC
+# shad = 4.9e+07
+#
+# Using the old definition for the spinor products
+# singular for momenta along the z-axis
+# Checking consistency of spinor product version usedin f77 part...
+# Same version!#
+# Init the library for the scalar integrals...
+#
+#
+# -------------------------------------------------------------
+#  Standard Model Parameters: 
+# -------------------------------------------------------------
+#  Masses:
+#                   mt = 166
+#                   mb = 0
+#                   mc = 0
+#                   ms = 0
+#                   mu = 0
+#                   ms = 0
+#                   mw = 80.425
+#                   mz = 91.1876
+#                   mh = 120
+#
+#
+#  Couplings:
+#                   alphasLO = 0.131746
+#                  alphasNLO = 0.119682
+#                      alpha = 0.00791766
+#                    1/alpha = 126.3
+#  SinusThetaWeinbergSquared = 0.222124
+#
+#
+#  Scales:
+#
+#   FactorizationScale = 83
+# RenormalizationScale = 83
+#        InternalScale = 166
+#                Qaux  = 83
+#
+#             DeltaUV1 = 0
+#             DeltaIR1 = 0
+#             DeltaIR2 = 0
+#
+# -------------------------------------------------------------
+#
+#
+#
+# Calculate the K and P operator
+#
+# We set mu_F = mu_R 
+# 
+#
+# StandardModelParameters: Factorization scale = 83
+#
+#
+# StandardModelParameters: Renormalization scale = 83
+#
+#
+# Setup Vegas:  itmx = 1   ncall = 900000
+#
+# THERMALIZE START
+#--------------------------------------------------------------------------
+#                      FastJet release 2.4.2
+#            Written by M. Cacciari, G.P. Salam and G. Soyez            
+#                         http://www.fastjet.fr                         
+#								      	   
+# Longitudinally invariant Kt, anti-Kt, and inclusive Cambridge/Aachen  
+# clustering using fast geometric algorithms, with area measures and optional
+# external jet-finder plugins.                                          
+# Please cite Phys. Lett. B641 (2006) [hep-ph/0512210] if you use this code.
+#								      	   
+# This package uses T.Chan's closest pair algorithm, Proc.13th ACM-SIAM 
+# Symp. Discr. Alg, p.472 (2002), S.Fortune's Voronoi algorithm and code .
+#-------------------------------------------------------------------------

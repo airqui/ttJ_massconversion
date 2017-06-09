@@ -1,0 +1,6 @@
+cp results.mt160*/* mt160/.
+cp results.mt162*/* mt162/.
+cp results.mt164*/* mt164/.
+cp results.mt166*/* mt166/.
+cp results.mt168*/* mt168/.
+cp results.mt170*/* mt170/.

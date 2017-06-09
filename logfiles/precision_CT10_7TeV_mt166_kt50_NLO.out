@@ -1,0 +1,774 @@
+ 
+ 
+//######################################################################################################### 
+   ANALYSIS OF:  CT107TeV_mt166__kt50_NLO.root
+//######################################################################################################### 
+ 
+ 
+file number 0
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.born_gg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad 7000 --topmass 166 --scale 1.0 --leadingorder --virtual --gg --ktmin 50
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 1.33221 d
+Calculated Process Cross-Section = 24.2524 +- 0.0394335
+LO  contribution
+ 
+file number 1
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.born_qqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad 7000 --topmass 166 --scale 1.0 --leadingorder --virtual --qqb --ktmin 50
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.68875 d
+Calculated Process Cross-Section = 2.45612 +- 0.0129769
+LO  contribution
+ 
+file number 2
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.born_qg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --leadingorder --virtual --qg --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.6425 d
+Calculated Process Cross-Section = 11.958 +- 0.0264632
+LO  contribution
+ 
+file number 3
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.born_gqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad 7000 --topmass 166 --scale 1.0 --leadingorder --virtual --gqb --ktmin 50
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 1.09076 d
+Calculated Process Cross-Section = 2.24689 +- 0.0110272
+LO  contribution
+ 
+file number 4
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.virtual_gg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --virtual --gg --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 2.48649 d
+Calculated Process Cross-Section = 1.40481 +- 0.195857
+NLO  contribution
+ 
+file number 5
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.virtual_qqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --virtual --qqb --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 1.10782 d
+Calculated Process Cross-Section = -0.327678 +- 0.0184499
+NLO  contribution
+ 
+file number 6
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.virtual_qg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --virtual --qg --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 1.17696 d
+Calculated Process Cross-Section = 2.5709 +- 0.0386394
+NLO  contribution
+ 
+file number 7
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.virtual_gqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --virtual --gqb --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 1.12957 d
+Calculated Process Cross-Section = 0.563335 +- 0.016453
+NLO  contribution
+ 
+file number 8
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc0.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 0 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 1.88889 d
+Calculated Process Cross-Section = -7.38968 +- 0.229957
+NLO  contribution
+ 
+file number 9
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc1.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 1 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 1.50142 d
+Calculated Process Cross-Section = -0.469529 +- 0.0711266
+NLO  contribution
+ 
+file number 10
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc3.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 3 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 2.24247 d
+Calculated Process Cross-Section = -0.830029 +- 0.0508429
+NLO  contribution
+ 
+file number 11
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc6.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 6 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 1.56206 d
+Calculated Process Cross-Section = -5.55757 +- 0.133267
+NLO  contribution
+ 
+file number 12
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc7.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 7 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.789271 d
+Calculated Process Cross-Section = -1.71538 +- 0.112272
+NLO  contribution
+ 
+file number 13
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc8.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 8 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.781343 d
+Calculated Process Cross-Section = -0.0105196 +- 0.00308415
+NLO  contribution
+ 
+file number 14
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc9.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 9 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.886956 d
+Calculated Process Cross-Section = -0.370558 +- 0.0188733
+NLO  contribution
+ 
+file number 15
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc11.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 11 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.686944 d
+Calculated Process Cross-Section = -0.162225 +- 0.0166733
+NLO  contribution
+ 
+file number 16
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc13.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 13 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.872072 d
+Calculated Process Cross-Section = -0.0758559 +- 0.0195551
+NLO  contribution
+ 
+file number 17
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc14.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 14 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.78831 d
+Calculated Process Cross-Section = -0.00366698 +- 0.0024193
+NLO  contribution
+ 
+file number 18
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc15.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 15 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.669398 d
+Calculated Process Cross-Section = -0.376568 +- 0.0305581
+NLO  contribution
+ 
+file number 19
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.real_proc17.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --real --proc 17 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.571146 d
+Calculated Process Cross-Section = -0.0826091 +- 0.0145396
+NLO  contribution
+ 
+file number 20
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.subtractions_proc18.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --subtractions --proc 18 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.615301 d
+Calculated Process Cross-Section = 16.7321 +- 0.0825288
+NLO  contribution
+ 
+file number 21
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.subtractions_proc20.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --subtractions --proc 20 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.876586 d
+Calculated Process Cross-Section = 0.582813 +- 0.0174184
+NLO  contribution
+ 
+file number 22
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.subtractions_proc21.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --subtractions --proc 21 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.720764 d
+Calculated Process Cross-Section = 0.930757 +- 0.0172279
+NLO  contribution
+ 
+file number 23
+File name: ../../NLOmtpole/ttj_mu1/mt166/dist.mt166_CT10_mu1_pt50_10000.subtractions_proc24.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 1.0 --subtractions --proc 24 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.108218
+Total time of calc: 0.790833 d
+Calculated Process Cross-Section = 4.94272 +- 0.0392046
+NLO  contribution
+ 
+ 
+ 
+ ----------------------------------------------------
+ ####################################################
+ FINAL RESULTS FOR: CT107TeV_mt166_mu1_kt50_NLO
+ alpha_S(Q=Mt*mu) = 0.108218 used in the calculations
+ alpha_S(Q=Mt*mu) = 0.108218 FOR CORRECTIONS 
+ SIGMA tt+Jet = 51.269 +- 0.0683905
+ SIGMA tt+Jet = 51.269 with alpha_S corrections
+ LO_SIGMA = 40.9134 +- 0.00171802
+ NLO_SIGMA = 10.3555 +- 0.0683689
+ SIGMA =   LO_SIGMA    +  NLO_SIGMA 
+ SIGMA = alpha_S^3 * A + alpha_S^4 * B 
+ A= 32282.5   B= 75504.8
+ ####################################################
+ ----------------------------------------------------
+file number 0
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.born_gg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --leadingorder --virtual --gg --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.877072 d
+Calculated Process Cross-Section = 38.1396 +- 0.0494571
+LO  contribution
+ 
+file number 1
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.born_qqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --leadingorder --virtual --qqb --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.535093 d
+Calculated Process Cross-Section = 3.52649 +- 0.0155242
+LO  contribution
+ 
+file number 2
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.born_qg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --leadingorder --virtual --qg --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.626991 d
+Calculated Process Cross-Section = 18.0171 +- 0.0324345
+LO  contribution
+ 
+file number 3
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.born_gqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --leadingorder --virtual --gqb --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.741076 d
+Calculated Process Cross-Section = 3.36826 +- 0.0135093
+LO  contribution
+ 
+file number 4
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.virtual_gg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --virtual --gg --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 2.00892 d
+Calculated Process Cross-Section = -9.18847 +- 0.233109
+NLO  contribution
+ 
+file number 5
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.virtual_qqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --virtual --qqb --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 1.94595 d
+Calculated Process Cross-Section = -1.59985 +- 0.0288184
+NLO  contribution
+ 
+file number 6
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.virtual_qg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --virtual --qg --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 2.80106 d
+Calculated Process Cross-Section = -1.18494 +- 0.039
+NLO  contribution
+ 
+file number 7
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.virtual_gqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --virtual --gqb --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 2.21987 d
+Calculated Process Cross-Section = -0.0844171 +- 0.0169411
+NLO  contribution
+ 
+file number 8
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc0.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 0 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 1.83429 d
+Calculated Process Cross-Section = -12.9324 +- 0.309112
+NLO  contribution
+ 
+file number 9
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc1.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 1 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 1.60549 d
+Calculated Process Cross-Section = -0.745162 +- 0.0957862
+NLO  contribution
+ 
+file number 10
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc3.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 3 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 4.04203 d
+Calculated Process Cross-Section = -1.40456 +- 0.0552178
+NLO  contribution
+ 
+file number 11
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc6.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 6 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 2.88016 d
+Calculated Process Cross-Section = -9.48382 +- 0.187803
+NLO  contribution
+ 
+file number 12
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc7.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 7 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.602824 d
+Calculated Process Cross-Section = -3.00243 +- 0.155652
+NLO  contribution
+ 
+file number 13
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc8.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 8 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.701852 d
+Calculated Process Cross-Section = -0.0168364 +- 0.00447996
+NLO  contribution
+ 
+file number 14
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc9.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 9 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.764097 d
+Calculated Process Cross-Section = -0.613238 +- 0.0231366
+NLO  contribution
+ 
+file number 15
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc11.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 11 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.604039 d
+Calculated Process Cross-Section = -0.263633 +- 0.0215615
+NLO  contribution
+ 
+file number 16
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc13.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 13 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.676794 d
+Calculated Process Cross-Section = -0.120366 +- 0.0241263
+NLO  contribution
+ 
+file number 17
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc14.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 14 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.605428 d
+Calculated Process Cross-Section = -0.00604284 +- 0.00335857
+NLO  contribution
+ 
+file number 18
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc15.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 15 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.618461 d
+Calculated Process Cross-Section = -0.62984 +- 0.0325269
+NLO  contribution
+ 
+file number 19
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.real_proc17.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --real --proc 17 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.550486 d
+Calculated Process Cross-Section = -0.136618 +- 0.019975
+NLO  contribution
+ 
+file number 20
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.subtractions_proc18.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --subtractions --proc 18 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.631771 d
+Calculated Process Cross-Section = 22.911 +- 0.0920217
+NLO  contribution
+ 
+file number 21
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.subtractions_proc20.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --subtractions --proc 20 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.862975 d
+Calculated Process Cross-Section = 0.716944 +- 0.0187537
+NLO  contribution
+ 
+file number 22
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.subtractions_proc21.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --subtractions --proc 21 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Calculated Process Cross-Section = 1.18153 +- 0.0223964
+NLO  contribution
+ 
+file number 23
+File name: ../../NLOmtpole/ttj_mu05/mt166/dist.mt166_CT10_mu05_pt50_10000.subtractions_proc24.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 0.5 --subtractions --proc 24 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.119682
+Total time of calc: 0.639375 d
+Calculated Process Cross-Section = 6.2302 +- 0.0458039
+NLO  contribution
+ 
+ 
+ 
+ ----------------------------------------------------
+ ####################################################
+ FINAL RESULTS FOR: CT107TeV_mt166_mu05_kt50_NLO
+ alpha_S(Q=Mt*mu) = 0.119682 used in the calculations
+ alpha_S(Q=Mt*mu) = 0.108218 FOR CORRECTIONS 
+ SIGMA tt+Jet = 103.947 +- 0.134942
+ SIGMA tt+Jet = 76.848 with alpha_S corrections
+ LO_SIGMA = 103.965 +- 0.00318317
+ NLO_SIGMA = -0.0174285 +- 0.134905
+ SIGMA =   LO_SIGMA    +  NLO_SIGMA 
+ SIGMA = alpha_S^3 * A + alpha_S^4 * B 
+ A= 60645.7   B= -84.9463
+ ####################################################
+ ----------------------------------------------------
+file number 0
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.born_gg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad 7000 --topmass 166 --scale 2.0 --leadingorder --virtual --gg --ktmin 50
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 1.00115 d
+Calculated Process Cross-Section = 16.0361 +- 0.0320624
+LO  contribution
+ 
+file number 1
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.born_qqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad 7000 --topmass 166 --scale 2.0 --leadingorder --virtual --qqb --ktmin 50
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.723113 d
+Calculated Process Cross-Section = 1.7643 +- 0.0110136
+LO  contribution
+ 
+file number 2
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.born_qg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --leadingorder --virtual --qg --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.638519 d
+Calculated Process Cross-Section = 8.22376 +- 0.021975
+LO  contribution
+ 
+file number 3
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.born_gqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad 7000 --topmass 166 --scale 2.0 --leadingorder --virtual --gqb --ktmin 50
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 1.1742 d
+Calculated Process Cross-Section = 1.55035 +- 0.00915696
+LO  contribution
+ 
+file number 4
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.virtual_gg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --virtual --gg --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 1.9911 d
+Calculated Process Cross-Section = 4.82488 +- 0.144776
+NLO  contribution
+ 
+file number 5
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.virtual_qqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --virtual --qqb --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 1.0255 d
+Calculated Process Cross-Section = 0.230156 +- 0.017309
+NLO  contribution
+ 
+file number 6
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.virtual_qg.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --virtual --qg --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 1.19279 d
+Calculated Process Cross-Section = 3.67422 +- 0.039064
+NLO  contribution
+ 
+file number 7
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.virtual_gqb.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --virtual --gqb --ktmin 50 --vegaspoints 10000
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 1.16242 d
+Calculated Process Cross-Section = 0.742047 +- 0.0166853
+NLO  contribution
+ 
+file number 8
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc0.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 0 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 3.82954 d
+Calculated Process Cross-Section = -4.41239 +- 0.169529
+NLO  contribution
+ 
+file number 9
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc1.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 1 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 1.56741 d
+Calculated Process Cross-Section = -0.29987 +- 0.0528205
+NLO  contribution
+ 
+file number 10
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc3.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 3 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 4.09274 d
+Calculated Process Cross-Section = -0.512116 +- 0.035426
+NLO  contribution
+ 
+file number 11
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc6.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 6 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 1.50707 d
+Calculated Process Cross-Section = -3.40016 +- 0.114455
+NLO  contribution
+ 
+file number 12
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc7.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 7 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.696296 d
+Calculated Process Cross-Section = -1.02993 +- 0.099549
+NLO  contribution
+ 
+file number 13
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc8.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 8 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.890012 d
+Calculated Process Cross-Section = -0.00680556 +- 0.00250878
+NLO  contribution
+ 
+file number 14
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc9.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 9 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.763657 d
+Calculated Process Cross-Section = -0.233079 +- 0.0183112
+NLO  contribution
+ 
+file number 15
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc11.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 11 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.636863 d
+Calculated Process Cross-Section = -0.103686 +- 0.0149332
+NLO  contribution
+ 
+file number 16
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc13.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 13 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.864688 d
+Calculated Process Cross-Section = -0.0498273 +- 0.0157379
+NLO  contribution
+ 
+file number 17
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc14.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 14 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.699421 d
+Calculated Process Cross-Section = -0.0023279 +- 0.00207316
+NLO  contribution
+ 
+file number 18
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc15.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 15 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.796238 d
+Calculated Process Cross-Section = -0.236435 +- 0.0170909
+NLO  contribution
+ 
+file number 19
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.real_proc17.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --real --proc 17 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.708113 d
+Calculated Process Cross-Section = -0.0526213 +- 0.0134499
+NLO  contribution
+ 
+file number 20
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.subtractions_proc18.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --subtractions --proc 18 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.426644 d
+Calculated Process Cross-Section = 12.3388 +- 0.069419
+NLO  contribution
+ 
+file number 21
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.subtractions_proc20.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --subtractions --proc 20 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.667141 d
+Calculated Process Cross-Section = 0.478753 +- 0.0162019
+NLO  contribution
+ 
+file number 22
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.subtractions_proc21.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --subtractions --proc 21 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.907674 d
+Calculated Process Cross-Section = 0.735378 +- 0.0156269
+NLO  contribution
+ 
+file number 23
+File name: ../../NLOmtpole/ttj_mu2/mt166/dist.mt166_CT10_mu2_pt50_10000.subtractions_proc24.out
+settings on the simulation: 
+./main.exe  --lhc --sqrtshad=7000 --topmass 166 --scale 2.0 --subtractions --proc 24 --ktmin 50 --vegaspoints
+LHAPDF:  CT10.LHgrid
+alphasNLO  0.0987992
+Total time of calc: 0.897882 d
+Calculated Process Cross-Section = 3.9041 +- 0.0337491
+NLO  contribution
+ 
+ 
+ 
+ ----------------------------------------------------
+ ####################################################
+ FINAL RESULTS FOR: CT107TeV_mt166_mu2_kt50_NLO
+ alpha_S(Q=Mt*mu) = 0.0987992 used in the calculations
+ alpha_S(Q=Mt*mu) = 0.108218 FOR CORRECTIONS 
+ SIGMA tt+Jet = 148.111 +- 0.140315
+ SIGMA tt+Jet = 196.713 with alpha_S corrections
+ LO_SIGMA = 131.539 +- 0.00338295
+ NLO_SIGMA = 16.5717 +- 0.140274
+ SIGMA =   LO_SIGMA    +  NLO_SIGMA 
+ SIGMA = alpha_S^3 * A + alpha_S^4 * B 
+ A= 136394   B= 173922
+ ####################################################
+ ----------------------------------------------------
