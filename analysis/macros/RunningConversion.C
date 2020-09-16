@@ -52,7 +52,7 @@ void Conversion(TString energy = "LHC13", TString pdf="CT10", TString distributi
   
   //Calculate the LO derivative using two points (+delta, -delta)
   std::vector<double> der;
-  der=get_LOderivative_5p(energy,pdf,distribution+"_LO",mass,scale,delta_m);
+  der=get_LOderivative_5p(energy,pdf,distribution+"_LO",mass,scale,delta_m,false);
 
   //2 Extract the NLO N3 distribution (not normalized) and the alpha_s value (over pi)
   std::vector<double> value_0;

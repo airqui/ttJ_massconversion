@@ -282,7 +282,6 @@ TGraphErrors* readGraphCp(TString filename,TString title, TString pt, bool error
 
 
 
-
 TGraphErrors* Errors3(TGraphErrors* gref, TGraphErrors *gref_up, TGraphErrors *gref_down) {
 
   Double_t *x=gref->GetX();
@@ -297,14 +296,15 @@ TGraphErrors* Errors3(TGraphErrors* gref, TGraphErrors *gref_up, TGraphErrors *g
   int n=0;
   
   for(int i=0; i<gref->GetN(); i++) {
-    x_new[i]=x[i];
-    ex_new[i]=ex[i];    // double s= (fabs(y_up[i]-y[i])/double(interval) +  fabs(y_down[i]-y[i])/double(interval) ) / (2*y[i]);
-
-    if(y[i]>0) y_new[i]=fabs(y_up[i]-y_down[i])/(2.*y[i]);
-      //(fabs(y_up[i]-y[i]) +  fabs(y_down[i]-y[i]) ) / (2*y[i]);//fabs(y_up[i]-y_down[i])/(2.*y[i]);
-    if(y_new[i]>50) y_new[i]=0;
-    ey_new[i]=0;//fabs(y_up[i]-y_down[i])/2.;
-    n++;
+  
+    if(y[i]>0) {
+      x_new[n]=x[i];
+      ex_new[n]=ex[i]; 
+      y_new[n]=(fabs(y_up[i]-y[i])+fabs(y[i]-y_down[i]))/(2.*y[i]);
+      ey_new[n]=0;
+      n++;
+    }
+    
   }
 
   TGraphErrors* result = new TGraphErrors(n,x_new,y_new,ex_new,ey_new);
@@ -328,13 +328,16 @@ TGraphErrors* GraphErrors3(TGraphErrors* gref, TGraphErrors *gref_up, TGraphErro
   int n=0;
   
   for(int i=0; i<gref->GetN(); i++) {
-    x_new[i]=x[i];
-    ex_new[i]=ex[i];
-
-    y_new[i]=y[i];
-    ey_new[i]=fabs(y_up[i]-y_down[i])/2.;
-    n++;
-  }
+  
+    //  if(y[i]>0) {
+      x_new[n]=x[i];
+      ex_new[n]=0; 
+      ey_new[n]=(fabs(y_up[i]-y[i])+fabs(y[i]-y_down[i]))/(2.);
+      y_new[n]=y[i];
+      n++;
+      // }
+    
+  } 
 
   TGraphErrors* result = new TGraphErrors(n,x_new,y_new,ex_new,ey_new);
 
@@ -353,13 +356,15 @@ TGraphErrors* GraphErrors3(TGraph* gref, TGraph *gref_up, TGraph *gref_down) {
   int n=0;
   
   for(int i=0; i<gref->GetN(); i++) {
-    x_new[i]=x[i];
-    ex_new[i]=0;
-
-    y_new[i]=y[i];
-    ey_new[i]=fabs(y_up[i]-y_down[i])/2.;
-    n++;
+  
+      x_new[n]=x[i];
+      ex_new[n]=0; 
+      ey_new[n]=(fabs(y_up[i]-y[i])+fabs(y[i]-y_down[i]))/(2.);
+      y_new[n]=y[i];
+      n++;
+    
   }
+
 
   TGraphErrors* result = new TGraphErrors(n,x_new,y_new,ex_new,ey_new);
 
@@ -441,6 +446,7 @@ TGraphErrors* Sens3(TGraph *gref,TGraph *g_up,TGraph *g_down,int mass=170, int i
       y_new[n]=s;
       ey_new[n]=0;
       n++;
+      //      cout<<s<<endl;
     } 
   }
 
