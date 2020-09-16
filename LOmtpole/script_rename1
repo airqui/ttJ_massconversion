@@ -1,6 +1,0 @@
-rename qg qg.out *qg
-rename gg gg.out *gg
-rename qqb qqb.out *qqb
-rename gqb gqb.out *gqb
-rename mt1 dist.LO.mt1 mt1*
-rename 10000_ 10000. *.out
