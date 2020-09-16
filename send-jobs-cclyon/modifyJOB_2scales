@@ -1,0 +1,14 @@
+cp jobtest2scales jobtest2scales_$NAMEjob
+/bin/vi jobtest2scales_$NAMEjob <<EOF>& /dev/null
+:%s/xNAMEjob/$NAMEjob/g
+:%s/xMASS/$MASS/g
+:%s/xmuSCALEr/$muSCALEr/g
+:%s/xSCALEr/$SCALEr/g
+:%s/xmuSCALEf/$muSCALEf/g
+:%s/xSCALEf/$SCALEf/g
+:%s/xPROCESS/$PROCESS/g
+:%s/outputfilename/$NAMEjob/g
+:%s/outputfilename/$NAMEjob/g
+:w!
+:q
+EOF

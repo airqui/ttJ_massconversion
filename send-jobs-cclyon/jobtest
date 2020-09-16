@@ -1,0 +1,19 @@
+#!/bin/bash
+#$ -l h_fsize=2G
+#$ -l h_vmem=10G
+#$ -l h_rt=168:00:00
+#$ -P P_ilc
+#$ -o /pbs/home/a/airles/private/ttJ_scripts_2019/scripts_202008/log/stdOutput_ttJ_xNAMEjob.txt
+### #-m ebas
+### #-M irles@lal.in2p3.fr
+
+cp /pbs/home/a/airles/private/ttJ_scripts_2019/production_2020/main.exe .
+cp /pbs/home/a/airles/private/ttJ_scripts_2019/production_2020/VegasPointsSetup.txt .
+cp /pbs/home/a/airles/private/ttJ_scripts_2019/production_2020/setup.sh .
+cp -r /pbs/home/a/airles/private/ttJ_scripts_2019/production_2020/libs .
+source setup.sh
+cp VegasPointsSetup.txt /pbs/home/a/airles/private/ttJ_scripts_2019/production_2020/output/.
+
+
+./main.exe --lhc --topmass xMASS --scale xSCALE xPROCESS --dist > outputfilename.log
+cp outputfilename.log /pbs/home/a/airles/private/ttJ_scripts_2019/production_2020/output/.
