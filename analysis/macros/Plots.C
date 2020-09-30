@@ -23,17 +23,17 @@ using namespace std;
 void Plots() {
 
   //pole
-  //ReferencePlots("pole", "CT10", "LHC13", "n3_24_", "pt50", 173,4);
-  Sens_scale_pt("CT10","LHC13", 172, 2, "pt30", "","n3_24_","pole");
-  //Sens_scale_bin("CT10","LHC13", 172, 2, "pt30", "","n3_","50","pole");
-  //CrossSection("CT10","LHC13", 158, 12, "50", "pole");
+  //ReferencePlots("pole", "CT10", "LHC13", "n3_24_", "pt50", 173,5);
+  //Sens_scale_pt("CT10","LHC13", 173, 2, "pt30", "","n3_24_","pole");
+  //Sens_scale_bin("CT10","LHC13", 173, 2, "pt30", "","n3_","50","pole");
+  //CrossSection("CT10","LHC13", 168, 10, "50", "pole");
 
 
   ////running
-  //ReferencePlots("running", "CT10", "LHC13", "n3_24_", "pt50", 163,4);
-  //  Sens_scale_pt("CT10","LHC13", 163, 4, "pt30", "","n3_24_","running");
-  //  Sens_scale_bin("CT10","LHC13", 164, 2, "pt30", "","n3_","50","running");
-  // CrossSection("CT10","LHC13", 158, 12, "50", "running");
+  //  ReferencePlots("running", "CT10", "LHC13", "n3_24_", "pt50", 163,5);
+  //Sens_scale_pt("CT10","LHC13", 163, 2, "pt30", "","n3_24_","running");
+  //Sens_scale_bin("CT10","LHC13", 163, 2, "pt30", "","n3_","50","running");
+  CrossSection("CT10","LHC13", 158, 10, "50", "running");
 }
 
 

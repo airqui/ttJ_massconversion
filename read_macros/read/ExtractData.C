@@ -23,7 +23,7 @@ int SaveGraphs(string prefix, string hname, int nlines, double bwidth[], double 
   
   TKey *key2 = f1->FindKey("alphas_over_pi");
   if (key2 == 0)  {
-    cout<<" Write Alpha"<<endl;
+    //    cout<<" Write Alpha"<<endl;
     TVectorD *a = new TVectorD(1);
     a[0] = alphasNLO/TMath::Pi();
     a->Write("alphas_over_pi");
@@ -63,7 +63,7 @@ int SaveGraphs(string prefix, string hname, int nlines, double bwidth[], double 
   }
   TKey *key2 = f1->FindKey("alphas_over_pi");
   if (key2 == 0)  {
-    cout<<" Write Alpha"<<endl;
+    //    cout<<" Write Alpha"<<endl;
     TVectorD *a = new TVectorD(1);
     a[0] = alphasNLO/TMath::Pi();
     a->Write("alphas_over_pi");
@@ -120,10 +120,10 @@ int SaveGraphs(string prefix, string hname, int nlines, double bwidth[], double 
 int CombineData(string prefix, string hname, double bwidth[],string output, bool bool_NLO){
 
   string procs_lo[] = {"born_gg","born_gqb","born_qg","born_qqb"};
-  string procs_nlo[] = {"virtual_gg","virtual_gqb","virtual_qg","virtual_qqb",
+  string procs_nlo[] = {"virtual_gg_merged","virtual_gqb","virtual_qg","virtual_qqb",
 			"subtractions_18","subtractions_20",
 			"subtractions_21","subtractions_24",
-			"real_0","real_1","real_3","real_6",
+			"real_0_merged","real_1","real_3","real_6",
 			"real_7","real_8","real_9","real_11",
 			"real_13",
 			"real_14","real_15", "real_17"};
@@ -199,6 +199,7 @@ int CombineData(string prefix, string hname, double bwidth[],string output, bool
       }
       
       nlines=parser.lcount;
+      N = parser.hcount;
       double avg[100][3]={0.};
       for(int j=0;j<nlines;j++){
         avg[j][0] = data[0][j][0];
@@ -298,7 +299,7 @@ int main(int argc, char* argv[6]){
   std::cout<<"## order (LO or NLO) "<<" "<<argv[7]<<std::endl;
 
   string prefix = "../../"+string(argv[1])+"/"+string(argv[2])+"_"+string(argv[3])+"_mt"+string(argv[4])+"_pt"+string(argv[6])+"_mu"+string(argv[5])+"_";
-  string output = "../../rootfiles/"+string(argv[2])+"_"+string(argv[3])+"_mt"+string(argv[4])+"_pt"+string(argv[6])+"_mu"+string(argv[5]);
+  string output = "../../rootfiles_LHC13_1/"+string(argv[2])+"_"+string(argv[3])+"_mt"+string(argv[4])+"_pt"+string(argv[6])+"_mu"+string(argv[5]);
 
   std::cout<<"## "<<prefix<<endl;
 

@@ -2,7 +2,9 @@
 
 void Sens_scale_pt(TString pdf="CT10",TString energy="13TeV", int mass=170, int interval=4, TString ptsim="pt30", TString order="", TString title="n3_24_", TString scheme="pole"){
 
-  TString folder= "../../rootfiles/";
+  TString folder_root="rootfiles_LHC13_1";
+
+  TString folder= "../../"+folder_root+"/";
 
   TString mt="_mt";
   if(scheme == "running" ) mt="_mtrun";
@@ -101,10 +103,10 @@ void Sens_scale_pt(TString pdf="CT10",TString energy="13TeV", int mass=170, int 
   /// --------------------------------------------------------------------------------------------------------
 
   std::vector<TGraphErrors*> dist_vector;
-  dist_vector.push_back(gref_errors_pt30);
-  dist_vector.push_back(gref_errors_pt50);
-  dist_vector.push_back(gref_errors_pt75);
-  dist_vector.push_back(gref_errors_pt100);
+  dist_vector.push_back(gref_pt30);
+  dist_vector.push_back(gref_pt50);
+  dist_vector.push_back(gref_pt75);
+  dist_vector.push_back(gref_pt100);
 
   std::vector<TString> label_vector;
   label_vector.push_back("pt>30 GeV");
@@ -112,7 +114,7 @@ void Sens_scale_pt(TString pdf="CT10",TString energy="13TeV", int mass=170, int 
   label_vector.push_back("pt>75 GeV");
   label_vector.push_back("pt>100 GeV");
   
-  DrawVector(dist_vector,"distr_canvas",label_vector,"#Rgothic(mt=171 GeV,pole,mu=1)", "#rho_{s}",scheme,"Binning 0.05");
+  DrawVector(dist_vector,"distr_canvas",label_vector,TString::Format("#Rgothic(mt=%i GeV,pole,mu=1)",mass), "#rho_{s}",scheme,"Binning 0.05");
   
  //--------
 
@@ -138,7 +140,7 @@ void Sens_scale_pt(TString pdf="CT10",TString energy="13TeV", int mass=170, int 
   sens_vector.push_back(sens_pt100);
 
 
-  DrawVector(sens_vector,"sens_canvas",label_vector,"S^{-1}", "#rho_{s}",scheme,"Binning 0.05");
+  DrawVector(sens_vector,"sens_canvas",label_vector,"S #times m_{top}(173) [GeV]", "#rho_{s}",scheme,"Binning 0.05");
 
   //--------
   TGraphErrors *senserror_pt30 = SensError3(gref_errors_pt30,g_up_pt30,g_down_pt30,mass,interval);
@@ -176,7 +178,9 @@ void Sens_scale_pt(TString pdf="CT10",TString energy="13TeV", int mass=170, int 
 
 void Sens_scale_bin(TString pdf="CT10",TString energy="13TeV", int mass=170, int interval=4, TString ptsim="pt30", TString order="", TString title="n3_",  TString pt="50", TString scheme="pole"){
 
-  TString folder= "../../rootfiles/";
+  TString folder_root="rootfiles_LHC13_1";
+
+  TString folder= "../../"+folder_root+"/";
   TString mt="_mt";
   if(scheme == "running" ) mt="_mtrun";
   
@@ -258,7 +262,7 @@ void Sens_scale_bin(TString pdf="CT10",TString energy="13TeV", int mass=170, int
   label_vector.push_back("0.1 binning");
   label_vector.push_back("0.05 binning");
   
-  DrawVector(dist_vector,"distr_canvas",label_vector,"#Rgothic(mt=171 GeV,pole,mu=1)", "#rho_{s}",scheme,"pt>"+pt+" GeV");
+  DrawVector(dist_vector,"distr_canvas",label_vector,TString::Format("#Rgothic(mt=%i GeV,pole,mu=1)",mass), "#rho_{s}",scheme,"pt>"+pt+" GeV");
 
    //--------
 

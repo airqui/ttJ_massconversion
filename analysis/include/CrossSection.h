@@ -2,10 +2,12 @@
 
 std::vector<double> CrossSectionPoint(TString pdf="CT10",TString energy="13TeV", int mass=170, TString pt="30", TString scheme="pole"){
 
-  TString folder= "../../rootfiles/";
-  //  if(scheme == "running" ) folder = "../../rootfiles/runningmass/";
+  TString folder_root="rootfiles_LHC13_1";
+
+  TString folder= "../../"+folder_root+"/";
+  //  if(scheme == "running" ) folder = "../../"+folder_root+"/runningmass/";
   TString mt="_mt"+TString::Format("%i",mass);
-  if(scheme == "running" ) "_mtrun"+TString::Format("%i",mass);
+  if(scheme == "running" ) mt="_mtrun"+TString::Format("%i",mass);
 
   TString title="n3_12_";
    //---------------------------------------------------------------------------------------------------------
@@ -13,7 +15,7 @@ std::vector<double> CrossSectionPoint(TString pdf="CT10",TString energy="13TeV",
   //read reference value + scale variations
   TString filename = folder+energy+"_"+pdf+mt+"_pt30_mu1.root";
   TGraphErrors *gref = readGraphNotNorm(filename,title+"pt"+pt);
-
+  cout<<filename<<endl;
   filename = folder+energy+"_"+pdf+mt+"_pt30_mu2.root";
   TGraphErrors *gref2 = readGraphNotNorm(filename,title+"pt"+pt);
 
@@ -27,9 +29,9 @@ std::vector<double> CrossSectionPoint(TString pdf="CT10",TString energy="13TeV",
   Double_t *y05=gref05->GetY();
 
   for(int i=0; i<gref05->GetN(); i++) {
-    integral += y[i];
-    integral2 += y2[i];
-    integral05 += y05[i];
+    integral += y[i]*0.1;
+    integral2 += y2[i]*0.1;
+    integral05 += y05[i]*0.1;
     cout<<i<<" "<<y[i]<<" "<<integral<<endl;;
   }
   std::vector<double> result;
@@ -42,6 +44,11 @@ std::vector<double> CrossSectionPoint(TString pdf="CT10",TString energy="13TeV",
 
 void CrossSection(TString pdf="CT10",TString energy="13TeV", int massstart=168, int interval=10, TString pt="30", TString scheme="pole"){
 
+  gROOT->Reset();
+  SetAtlasStyle();
+  gStyle->SetOptFit(0);
+  gStyle->SetOptStat(0);
+  
 
   double x[100], ex[100], y[100], y05[100], y2[100];
   int n=0;
@@ -65,7 +72,7 @@ void CrossSection(TString pdf="CT10",TString energy="13TeV", int massstart=168, 
 
   
   canv1->cd();
-  cross->GetYaxis()->SetTitle("cross section [fb]");
+  cross->GetYaxis()->SetTitle("cross section [pb]");
   cross->GetXaxis()->SetTitle("M_{t} [GeV]");
   if(scheme=="running")   cross->GetXaxis()->SetTitle("m_{t}(m_{t}) [GeV]");
                                                                                                                                              

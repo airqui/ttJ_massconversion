@@ -146,7 +146,7 @@ void RunningConversion() {
   TString energy="LHC13";
   TString pdf="CT10";
 
-  for(int j=157; j<170; j++) {
+  for(int j=158; j<169; j++) {
     
     double mass=double(j);
 
@@ -157,13 +157,13 @@ void RunningConversion() {
       if(k==2) scale="2";
       string hnames[] = {"n3_ATLAS7TeV_pt30","n3_ATLAS7TeV_pt50","n3_ATLAS7TeV_pt75","n3_ATLAS7TeV_pt100","n3_ATLAS8TeV_pt30","n3_ATLAS8TeV_pt50","n3_ATLAS8TeV_pt75","n3_ATLAS8TeV_pt100","n3_12_pt30","n3_12_pt50","n3_12_pt75","n3_12_pt100","n3_24_pt30","n3_24_pt50","n3_24_pt75","n3_24_pt100"};
       
-      TString outputfile = "../../rootfiles/"+energy+"_"+pdf+"_mtrun"+TString::Format("%.0f",mass)+"_pt30_mu"+scale+".root";
+      TString outputfile = "../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mtrun"+TString::Format("%.0f",mass)+"_pt30_mu"+scale+".root";
       TFile *f1 = new  TFile;
       f1 = new  TFile(outputfile,"RECREATE");
       cout<<outputfile<<endl;
 
 
-      ofstream fout ("../../logfiles/"+energy+"_"+pdf+"_mtrun"+TString::Format("%.0f",mass)+"_pt30_mu"+scale+".log");
+      ofstream fout ("../../logfiles_LHC13_1/"+energy+"_"+pdf+"_mtrun"+TString::Format("%.0f",mass)+"_pt30_mu"+scale+".log");
       for (unsigned i = 0; i<sizeof(hnames)/sizeof(string); i++){
 	cout<<" hnames "<<hnames[i]<<endl;
 	Conversion("LHC13","CT10",TString(hnames[i]),mass,scale,0.5, f1,fout.rdbuf(),true);

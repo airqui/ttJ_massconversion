@@ -19,25 +19,6 @@
 
 using namespace std;
 
-TH1F *Histo(TGraphErrors* graph) {
-
-  //  int n=2;
-  TH1F* h = new TH1F("h","h",24,-0.1,1.1); // the histogram (you should set the number of bins, the title etc)
-
-  Double_t *y;
-  Double_t *ey;
-  y=graph->GetY();
-  ey=graph->GetEY();
-  
-  for(int i=0; i < graph->GetN(); ++i) {
-    h->SetBinContent(i+1,y[i]);
-    h->SetBinError(i+1,ey[i]);
-  }
-
-  return h;
-
-}
-
 
 void Plots_Test2() {
  

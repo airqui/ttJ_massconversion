@@ -23,7 +23,7 @@ using namespace std;
 
 double as(TString energy ="LHC13", TString pdf ="CT10",TString mt="164", TString scale="1"){
 
-  TString s_mt="../../rootfiles/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
 
   cout<<" ------------------------------ " <<s_mt<<endl;
   TFile f_mt(s_mt);
@@ -38,7 +38,7 @@ double as(TString energy ="LHC13", TString pdf ="CT10",TString mt="164", TString
 
 std::vector<double> get_Distribution(TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30",TString mt="164", TString scale="1"){
 
-  TString s_mt="../../rootfiles/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
   cout<<s_mt<<endl;
   TFile f_mt(s_mt);
   TGraphErrors* N3_mt = (TGraphErrors*) f_mt.Get(distribution);
@@ -57,7 +57,7 @@ std::vector<double> get_Distribution(TString energy ="LHC13", TString pdf ="CT10
 
 std::vector<double> width_bin(TString energy ="LHC13", TString pdf ="CT10", TString distribution="n3_24_pt30",TString mt="164", TString scale="1"){
 
-  TString s_mt="../../rootfiles/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
   cout<<" width_bin "<<s_mt<<endl;
   
   TFile *f_mt = new TFile(s_mt,"READ");
@@ -79,7 +79,7 @@ std::vector<double> width_bin(TString energy ="LHC13", TString pdf ="CT10", TStr
 
 std::vector<double> bin(TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30",TString mt="164", TString scale="1"){
 
-  TString s_mt="../../rootfiles/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
   cout<<" bins "<<s_mt<<endl;
 
   TFile f_mt(s_mt);
@@ -110,11 +110,11 @@ std::vector<double> get_LOderivative_5p(TString energy ="LHC13", TString pdf ="C
 
   cout<<mt<<" "<<mtminus<<" "<<mtplus<<endl;
 
-  TString s_mtminus2="../../rootfiles/"+energy+"_"+pdf+"_mt"+mtminus2+"_pt30_mu"+scale+".root";
-  TString s_mtminus="../../rootfiles/"+energy+"_"+pdf+"_mt"+mtminus+"_pt30_mu"+scale+".root";
-  TString s_mt="../../rootfiles/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
-  TString s_mtplus="../../rootfiles/"+energy+"_"+pdf+"_mt"+mtplus+"_pt30_mu"+scale+".root";
-  TString s_mtplus2="../../rootfiles/"+energy+"_"+pdf+"_mt"+mtplus2+"_pt30_mu"+scale+".root";
+  TString s_mtminus2="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtminus2+"_pt30_mu"+scale+".root";
+  TString s_mtminus="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtminus+"_pt30_mu"+scale+".root";
+  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mtplus="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtplus+"_pt30_mu"+scale+".root";
+  TString s_mtplus2="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtplus2+"_pt30_mu"+scale+".root";
 
 
   TFile f_mtminus2(s_mtminus2);
@@ -204,46 +204,55 @@ std::vector<double> get_LOderivative_5p(TString energy ="LHC13", TString pdf ="C
   //----------------------------------------------------------------------
 
   for(int j=0; j<nbins; j++) {
-    TF1 *f2 = new TF1("f2", "[0]+[1]*(x)", 150, 170);
-    bin[j]->Fit("f2","E");
-    par_aL[j]=f2->GetParameter(0);  par_bL[j]=f2->GetParameter(1); 
-    par_eaL[j]=f2->GetParError(0);  par_ebL[j]=f2->GetParError(1);
+      TF1 *f2 = new TF1("f2", "[0]+[1]*(x)", 150, 170);
+      bin[j]->Fit("f2","E");
+      par_aL[j]=f2->GetParameter(0);  par_bL[j]=f2->GetParameter(1); 
+      par_eaL[j]=f2->GetParError(0);  par_ebL[j]=f2->GetParError(1);
   }
 
   if(draw==true) {
     gROOT->Reset();
     gStyle->SetOptFit(0);
     gStyle->SetOptStat(0);
-    
+    gStyle->SetTitle(0);
+
 
     double up_height     = 0.8; // please tune so that the upper figures size will meet your requirement
     double dw_correction = 1.55;//1.40; // please tune so that the smaller canvas size will work in your environment
-    double font_size_dw  = 0.05;
-    double title_offset  = 1.;
-    double title_size  = 0.075;
+    double font_size_dw  = 0.03;
+    double title_offset  = 1.1;
+    double title_size  = 0.05;
     double dw_height    = (1. - up_height) * dw_correction;
   
     TCanvas *canvas= new TCanvas ("fit","fit",1800,1600);
-    canvas->Divide(nbins/3+1,3);
+    canvas->Divide(3,3);//nbins/3+1,3);
 
     TLegend *leg2= new TLegend(0.75,0.6,0.85,0.85);
 
     for(int j=0; j<nbins; j++) {
 
       canvas->cd(j+1);
-      // bin[j]->GetYaxis()->SetRangeUser(0.,0.5);    
+      TF1 *f2 = new TF1("f2", "[0]+[1]*(x)", 150, 170);
+      bin[j]->Fit("f2","E");
+      par_aL[j]=f2->GetParameter(0);  par_bL[j]=f2->GetParameter(1);
+      par_eaL[j]=f2->GetParError(0);  par_ebL[j]=f2->GetParError(1);
+    
+      bin[j]->SetTitle(TString::Format("bin %i",j));
+      // bin[j]->GetYaxis()->SetRangeUser(0.,0.5);
       bin[j]->GetXaxis()->SetRangeUser(150,175);
       bin[j]->GetXaxis()->SetLabelSize(font_size_dw);
       bin[j]->GetYaxis()->SetLabelSize(font_size_dw);
       bin[j]->GetYaxis()->SetTitleSize(title_size);
-      bin[j]->GetYaxis()->CenterTitle();
+      bin[j]->GetXaxis()->SetTitleSize(title_size);
+      // bin[j]->GetYaxis()->CenterTitle();
       bin[j]->GetYaxis()->SetTitleOffset(title_offset);
       if(scale== "mu1")    bin[j]->GetYaxis()->SetTitle(distribution+"^{0} (m_{t}^{pole},#rho_{s},#mu=m_{t}^{pole})");
       if(scale== "mu05")    bin[j]->GetYaxis()->SetTitle(distribution+"^{0} (m_{t}^{pole},#rho_{s},#mu=0.5 m_{t}^{pole})");
       if(scale== "mu2")    bin[j]->GetYaxis()->SetTitle(distribution+"^{0} (m_{t}^{pole},#rho_{s},#mu=2  m_{t}^{pole})");
 
       bin[j]->GetXaxis()->SetTitle("m_{t}^{pole} [GeV]");
-    
+      bin[j]->GetYaxis()->SetTitle("#sigma [fb]");
+
       bin[j]->SetLineWidth(1);
       bin[j]->SetLineColor(1);
       bin[j]->SetLineStyle(1);
@@ -254,17 +263,17 @@ std::vector<double> get_LOderivative_5p(TString energy ="LHC13", TString pdf ="C
       bin[j]->Draw("ap");
     
       if(j==0) {
-	leg2 = new TLegend(0.5,0.75,0.9,0.9);
-	leg2->AddEntry(bin[j],"t#bar{t}+1Jet @ NLO (fix. order)" ,"pe");
-	leg2->AddEntry(bin[j],"best fit to a+b(m_{t}^{pole})" ,"l");
-	leg2->SetLineWidth(10);
-	leg2->SetLineColor(0);
-	leg2->SetFillColor(0);
+    	leg2 = new TLegend(0.5,0.75,0.9,0.9);
+    	leg2->AddEntry(bin[j],"t#bar{t}+1Jet @ NLO (fix. order)" ,"pe");
+    	leg2->AddEntry(f2,"best fit to a+b(m_{t}^{pole})" ,"l");
+    	leg2->SetLineWidth(10);
+    	leg2->SetLineColor(0);
+    	leg2->SetFillColor(0);
       }
-      leg2->Draw(); 
+      leg2->Draw();
     }
 
-    canvas->Print("../../logfiles/conversion/"+distribution+"fitLO_mt"+mt+"_"+scale+".eps");
+    canvas->Print("../../logfiles/"+distribution+"fitLO_mt"+mt+"_"+scale+".eps");
   } 
 
   ofstream fout ("../../logfiles/conversion/fitLO_"+distribution+"_mt"+mt+"_"+scale+TString::Format("_deltaM_%.1f.log",delta).Data());
@@ -332,9 +341,9 @@ std::vector<double> get_LOderivative(TString energy ="LHC13", TString pdf ="CT10
   TString mtminus=TString::Format("%.1f",mt_value-delta);
   cout<<mt<<" "<<mtminus<<" "<<mtplus<<endl;
 
-  TString s_mtminus="../../rootfiles/"+energy+"_"+pdf+"_mt"+mtminus+"_pt30_mu"+scale+".root";
-  TString s_mt="../../rootfiles/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
-  TString s_mtplus="../../rootfiles/"+energy+"_"+pdf+"_mt"+mtplus+"_pt30_mu"+scale+".root";
+  TString s_mtminus="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtminus+"_pt30_mu"+scale+".root";
+  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mtplus="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtplus+"_pt30_mu"+scale+".root";
 
 
   TFile f_mtminus(s_mtminus);

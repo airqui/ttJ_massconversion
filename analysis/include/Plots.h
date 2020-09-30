@@ -15,9 +15,12 @@
 #include "TH1.h"
 #include "TH2F.h"
 #include "TImage.h"
+#include "TString.h"
 #include "../include/AtlasStyle.C"
 #include "../include/AtlasLabels.h"
 using namespace std;
+
+
 
 TH1F *Histo(TGraphErrors* graph, int n=12) {
 
@@ -443,7 +446,7 @@ TGraphErrors* Sens3(TGraph *gref,TGraph *g_up,TGraph *g_down,int mass=170, int i
       x_new[n]=x[i];
       ex_new[n]=ex[i];
       double s= (fabs(y_up[i]-y[i])/double(interval) +  fabs(y_down[i]-y[i])/double(interval) ) / (2*y[i]);
-      y_new[n]=s;
+      y_new[n]=s*float(mass);
       ey_new[n]=0;
       n++;
       //      cout<<s<<endl;
@@ -850,6 +853,11 @@ void DrawSens3(std::vector<TGraphErrors *> sens,  TString canvasname,std::vector
 
 void DrawVector(std::vector<TGraphErrors *> sens,  TString canvasname,std::vector<TString> label, TString titley="#Delta#Rgothic(#mu) #times Sensitivity [GeV]", TString titlex="y_{t#bar{t}}",TString scheme="pole", TString pt="30GeV"){
 
+  gROOT->Reset();
+  SetAtlasStyle();
+  gStyle->SetOptFit(0);
+  gStyle->SetOptStat(0);
+  
   if(sens.size()<1) cout<<" DrawSens3 --> graph dimension ==0 " <<endl;
 
   // -----------------------------------------------------------------
@@ -909,16 +917,159 @@ void DrawVector(std::vector<TGraphErrors *> sens,  TString canvasname,std::vecto
     leg1->AddEntry(sens.at(2),label.at(2),"lp");
   }
 
-  if(sens.size()>3) {
-    sens.at(3)->SetLineColor(kGreen+2);
-    sens.at(3)->SetLineStyle(1);
-    sens.at(3)->SetLineWidth(3);
-    sens.at(3)->SetMarkerColor(kGreen+2);
-    sens.at(3)->SetMarkerSize(0.);
-    sens.at(3)->Draw("lp");
-    leg1->AddEntry(sens.at(3),label.at(3),"lp");
+  if(sens.size()>4) {
+    if(sens.size()>3) {
+      sens.at(3)->SetLineColor(kGray+2);
+      sens.at(3)->SetLineStyle(1);
+      sens.at(3)->SetLineWidth(2);
+      sens.at(3)->SetMarkerColor(kGray+2);
+      sens.at(3)->SetMarkerSize(0.);
+      sens.at(3)->Draw("lp");
+      leg1->AddEntry(sens.at(3),label.at(3),"lp");
+    }
+    for(int i=4; i<sens.size(); i++) {
+      sens.at(i)->SetLineColor(kGray+2);
+      sens.at(i)->SetLineStyle(1);
+      sens.at(i)->SetLineWidth(2);
+      sens.at(i)->SetMarkerColor(kGray+2);
+      sens.at(i)->SetMarkerSize(0.);
+      sens.at(i)->Draw("lp");
+    }
+  } else {  
+    if(sens.size()>3) {
+      sens.at(3)->SetLineColor(kGreen+2);
+      sens.at(3)->SetLineStyle(1);
+      sens.at(3)->SetLineWidth(3);
+      sens.at(3)->SetMarkerColor(kGreen+2);
+      sens.at(3)->SetMarkerSize(0.);
+      sens.at(3)->Draw("lp");
+      leg1->AddEntry(sens.at(3),label.at(3),"lp");
+    }
   }
-    
+
+  /*  if(sens.size()>4) { 
+    for(int i=4; i<sens.size(); i++) {
+      sens.at(i)->SetLineColor(kGray+2);
+      sens.at(i)->SetLineStyle(1);
+      sens.at(i)->SetLineWidth(1);
+      sens.at(i)->SetMarkerColor(kGray+2);
+      sens.at(i)->SetMarkerSize(0.);
+      sens.at(i)->Draw("lp");
+    }
+    }*/
+  
+
+  leg1->SetLineWidth(0);
+  leg1->SetFillColor(0);
+  leg1->SetShadowColor(0);
+  leg1->Draw();
+   
+
+
+}
+
+void DrawVector2(std::vector<TGraphErrors *> sens,  TString canvasname,std::vector<TString> label, TString titley="#Delta#Rgothic(#mu) #times Sensitivity [GeV]", TString titlex="y_{t#bar{t}}",TString scheme="pole", TString pt="30GeV"){
+
+  if(sens.size()<1) cout<<" DrawSens3 --> graph dimension ==0 " <<endl;
+
+  // -----------------------------------------------------------------
+  // --- plot stuff
+  TCanvas *canv1 = new TCanvas (canvasname,canvasname,1000,800);
+  
+  TLegend *leg1 = new TLegend(0.6,0.7,0.98,0.9);//Variables
+  leg1->SetHeader("13 TeV, "+scheme+", "+pt);
+  leg1->SetFillStyle(0);
+  
+  canv1->cd();
+  // gPad->SetLogy();
+  gPad->SetGridx();
+  gPad->SetGridy();
+
+  sens.at(0)->GetYaxis()->SetTitle(titley);
+  sens.at(0)->GetXaxis()->SetTitle(titlex);
+  sens.at(0)->GetYaxis()->SetLabelSize(0.04);
+  sens.at(0)->GetXaxis()->SetLabelSize(0.04);
+
+  Double_t *y=sens.at(0)->GetY();
+  double max=0;
+  for(int i=0; i<sens.at(0)->GetN(); i++)if (y[i]>max) max=y[i];;
+
+  sens.at(0)->GetYaxis()->SetRangeUser(0.,max*2);
+
+  sens.at(0)->SetLineColor(1);
+  sens.at(0)->SetLineStyle(1);
+  sens.at(0)->SetLineWidth(2);
+  sens.at(0)->SetMarkerColor(1);
+  sens.at(0)->SetMarkerSize(1.0);
+  sens.at(0)->SetMarkerStyle(20);
+  sens.at(0)->Draw("alp");
+
+  leg1->AddEntry(sens.at(0),label.at(0),"lp");
+
+  if(sens.size()>1) {
+    sens.at(1)->SetLineColor(kGray+2);
+    sens.at(1)->SetLineStyle(1);
+    sens.at(1)->SetLineWidth(4);
+    sens.at(1)->SetMarkerColor(kGray+2);
+    sens.at(1)->SetMarkerSize(1);
+    sens.at(1)->SetMarkerStyle(21);
+    sens.at(1)->Draw("lp");
+    leg1->AddEntry(sens.at(1),label.at(1),"lp");
+
+  }
+
+  if(sens.size()>2) {
+    sens.at(2)->SetLineColor(kGray);
+    sens.at(2)->SetLineStyle(1);
+    sens.at(2)->SetLineWidth(4);
+    sens.at(2)->SetMarkerColor(kGray);
+    sens.at(2)->SetMarkerSize(1);
+    sens.at(2)->SetMarkerStyle(22);
+    sens.at(2)->Draw("lp");
+    leg1->AddEntry(sens.at(2),label.at(2),"lp");
+  }
+
+  if(sens.size()>4) {
+    if(sens.size()>3) {
+      sens.at(3)->SetLineColor(kGreen);
+      sens.at(3)->SetLineStyle(2);
+      sens.at(3)->SetLineWidth(2);
+      sens.at(3)->SetMarkerColor(kGray);
+      sens.at(3)->SetMarkerSize(0.);
+      sens.at(3)->Draw("lp");
+      leg1->AddEntry(sens.at(3),label.at(3),"lp");
+    }
+    for(int i=4; i<sens.size(); i++) {
+      sens.at(i)->SetLineColor(kGreen+1);
+      sens.at(i)->SetLineStyle(2);
+      sens.at(i)->SetLineWidth(2);
+      sens.at(i)->SetMarkerColor(kGreen+1);
+      sens.at(i)->SetMarkerSize(0.);
+      sens.at(i)->Draw("lp");
+    }
+  } else {  
+    if(sens.size()>3) {
+      sens.at(3)->SetLineColor(kGreen+1);
+      sens.at(3)->SetLineStyle(1);
+      sens.at(3)->SetLineWidth(3);
+      sens.at(3)->SetMarkerColor(kGreen+1);
+      sens.at(3)->SetMarkerSize(0.);
+      sens.at(3)->Draw("lp");
+      leg1->AddEntry(sens.at(3),label.at(3),"lp");
+    }
+  }
+
+  /*  if(sens.size()>4) { 
+    for(int i=4; i<sens.size(); i++) {
+      sens.at(i)->SetLineColor(kGray+2);
+      sens.at(i)->SetLineStyle(1);
+      sens.at(i)->SetLineWidth(1);
+      sens.at(i)->SetMarkerColor(kGray+2);
+      sens.at(i)->SetMarkerSize(0.);
+      sens.at(i)->Draw("lp");
+    }
+    }*/
+  
 
   leg1->SetLineWidth(0);
   leg1->SetFillColor(0);
@@ -939,26 +1090,28 @@ void ReferencePlots(TString scheme="running", TString pdf="CT10", TString energy
   gStyle->SetOptFit(0);
   gStyle->SetOptStat(0);
 
-
+  TString folder_root="rootfiles_LHC13_1";
+  
   TString title = distribution;
-  TString filename = "../../rootfiles/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass)+"_pt30_mu1.root";
-  if(scheme=="pole") filename = "../../rootfiles/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass)+"_pt30_mu1.root";
+  
+  TString filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass)+"_pt30_mu1.root";
+  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass)+"_pt30_mu1.root";
   TGraphErrors *gref = readGraph(filename,title+ptcut,false);
   
-  filename = "../../rootfiles/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass)+"_pt30_mu2.root";
-  if(scheme=="pole")  filename = "../../rootfiles/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass)+"_pt30_mu2.root";
+  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass)+"_pt30_mu2.root";
+  if(scheme=="pole")  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass)+"_pt30_mu2.root";
   TGraphErrors *gref_scale_up = readGraph(filename,title+ptcut,false);
   
-  filename = "../../rootfiles/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass)+"_pt30_mu0.5.root";
-  if(scheme=="pole") filename = "../../rootfiles/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass)+"_pt30_mu0.5.root";
+  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass)+"_pt30_mu0.5.root";
+  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass)+"_pt30_mu0.5.root";
   TGraphErrors *gref_scale_down = readGraph(filename,title+ptcut,false);
 
-  filename = "../../rootfiles/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass+deltamass)+"_pt30_mu1.root";
-  if(scheme=="pole") filename = "../../rootfiles/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass+deltamass)+"_pt30_mu1.root";
+  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass+deltamass)+"_pt30_mu1.root";
+  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass+deltamass)+"_pt30_mu1.root";
   TGraphErrors *g_up = readGraph(filename,title+ptcut,false);
 
-  filename = "../../rootfiles/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass-deltamass)+"_pt30_mu1.root";
-  if(scheme=="pole") filename = "../../rootfiles/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass-deltamass)+"_pt30_mu1.root";
+  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass-deltamass)+"_pt30_mu1.root";
+  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass-deltamass)+"_pt30_mu1.root";
   TGraphErrors *g_down = readGraph(filename,title+ptcut,false);
 
   int n=12;
@@ -1058,12 +1211,12 @@ void ReferencePlots(TString scheme="running", TString pdf="CT10", TString energy
   TLegend *leg1 = new TLegend(0.55,0.7,0.9,0.9);//Variables
   leg1->SetHeader(energy+", "+ptcut);
   if(scheme=="running") {
-    leg1->AddEntry(h_gref,TString::Format("m(m)=%i GeV, #mu=m(m)",mass),"l");
     leg1->AddEntry(h_g_up,TString::Format("m(m)=%i GeV, #mu=m(m)",mass+deltamass),"l");
+    leg1->AddEntry(h_gref,TString::Format("m(m)=%i GeV, #mu=m(m)",mass),"l");
     leg1->AddEntry(h_g_down,TString::Format("m(m)=%i GeV, #mu=m(m)",mass-deltamass),"l");
   } else {
-    leg1->AddEntry(h_gref,TString::Format("M_{t}=%i GeV, #mu=M_{t}",mass),"l");
     leg1->AddEntry(h_g_up,TString::Format("M_{t}=%i GeV, #mu=M_{t}",mass+deltamass),"l");
+    leg1->AddEntry(h_gref,TString::Format("M_{t}=%i GeV, #mu=M_{t}",mass),"l");
     leg1->AddEntry(h_g_down,TString::Format("M_{t}=%i GeV, #mu=M_{t}",mass-deltamass),"l");
   }
 
@@ -1141,4 +1294,5 @@ void ReferencePlots(TString scheme="running", TString pdf="CT10", TString energy
   leg2->Draw();
 
 }
+
 
