@@ -110,7 +110,7 @@ TGraphErrors* NormGraphs(TGraphErrors* g, TGraphErrors *gref, int nbins_avoid) {
 TGraphErrors* readGraphNotNorm(TString filename,TString title) {
 
   TFile _file(filename);
-  cout<<filename<<" "<<title<<endl;
+  //  cout<<filename<<" "<<title<<endl;
   TGraphErrors *results = (TGraphErrors*) _file.Get(title.Data());
 
   return results;
@@ -120,7 +120,7 @@ TGraphErrors* readGraphNotNorm(TString filename,TString title) {
 TGraphErrors* readGraph(TString filename,TString title, bool errors=true) {
 
   TFile _file(filename);
-  cout<<filename<<" "<<title<<endl;
+  //  cout<<filename<<" "<<title<<endl;
   double integral=0;
   TGraphErrors *results = (TGraphErrors*) _file.Get(title.Data());
 
@@ -151,7 +151,7 @@ TGraphErrors* readGraph(TString filename,TString title, bool errors=true) {
 TGraphErrors* readGraphStatErrors(TString filename,TString title) {
 
   TFile _file(filename);
-  cout<<filename<<" "<<title<<endl;
+  //  cout<<filename<<" "<<title<<endl;
   double integral=0;
   TGraphErrors *results = (TGraphErrors*) _file.Get(title.Data());
 
