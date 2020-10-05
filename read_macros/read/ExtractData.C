@@ -1,49 +1,3 @@
-#include "../include/ExtractData.h"
-#include "../include/histograms.h"
-
-#include "TFile.h"
-#include "TNtuple.h"
-#include "TMath.h"
-#include "TTree.h"
-#include "TGraph.h"
-#include "TGraphErrors.h"
-#include "TH1F.h"
-#include "TKey.h"
-#include "TVectorD.h"
-
-int SaveGraphs(string prefix, string hname, int nlines, double bwidth[], double lores[][3]){
-
-  TFile *f1 = new  TFile(TString(prefix)+".root","UPDATE");
-
-  TKey *key = f1->FindKey(TString(hname)+"_LO");
-  if(key != 0) {
-    cout<< " ERROR:   HISTOGRAM "<<hname <<" in ROOT FILE: "<<TString(prefix)<<".root ALREADY EXISTS  --> STOP !"<<endl;
-    return 0;
-  }
-  
-  TKey *key2 = f1->FindKey("alphas_over_pi");
-  if (key2 == 0)  {
-    //    cout<<" Write Alpha"<<endl;
-    TVectorD *a = new TVectorD(1);
-    a[0] = alphasNLO/TMath::Pi();
-    a->Write("alphas_over_pi");
-  }
-
-  f1->cd();
-
- double x[100], ex[100], y[100], ey[100];
-
-
- // leading order cont.
- for(int i=0; i<nlines; i++) {
-   x[i]=lores[i][0];
-   ex[i]=bwidth[i]/2.;
-   y[i]=lores[i][1];
-   ey[i]=lores[i][2];
- }
-
- TGraphErrors *LO = new TGraphErrors(nlines,x,y,ex,ey);
- LO->SetName(TString(hname)+"_LO");
  LO->Write();
 
 
@@ -71,7 +25,7 @@ int SaveGraphs(string prefix, string hname, int nlines, double bwidth[], double 
 
   f1->cd();
 
- double x[100], ex[100], y[100], ey[100];
+ double x[300], ex[300], y[300], ey[300];
 
 
  // leading order cont.
@@ -130,7 +84,7 @@ int CombineData(string prefix, string hname, double bwidth[],string output, bool
   int nlines;
   double N;
   
-  double lores[100][3]={0}, nlores[100][3]={0}, res[100][3]={0};
+  double lores[300][3]={0}, nlores[300][3]={0}, res[300][3]={0};
 
   /*
    * Combine LO processes...
@@ -140,7 +94,7 @@ int CombineData(string prefix, string hname, double bwidth[],string output, bool
 		  "# Final result",hname);
     nlines = parser.lcount;
     N = parser.hcount;
-    double avg[100][3]={0.};
+    double avg[300][3]={0.};
     for(int j=0;j<nlines;j++){
       avg[j][0] = data[0][j][0];
       for(int i=0;i<N ;i++){
@@ -197,10 +151,9 @@ int CombineData(string prefix, string hname, double bwidth[],string output, bool
       if (procs_nlo[iproc].find("proc13") != string::npos){
 	fac = 4.;
       }
-      
       nlines=parser.lcount;
       N = parser.hcount;
-      double avg[100][3]={0.};
+      double avg[300][3]={0.};
       for(int j=0;j<nlines;j++){
         avg[j][0] = data[0][j][0];
         for(int i=0;i<N;i++){
@@ -266,7 +219,7 @@ int CombineData(string prefix, string hname, double bwidth[],string output, bool
 
 int CombineData(string prefix, string hname, double bwidth,string output, bool bool_order){
 
-  double bwidth_array[100];
+  double bwidth_array[300];
   for(int i=0; i<100; i++) bwidth_array[i]=bwidth;
   
   return CombineData(prefix, hname, bwidth_array,output,bool_order);
@@ -299,7 +252,7 @@ int main(int argc, char* argv[6]){
   std::cout<<"## order (LO or NLO) "<<" "<<argv[7]<<std::endl;
 
   string prefix = "../../"+string(argv[1])+"/"+string(argv[2])+"_"+string(argv[3])+"_mt"+string(argv[4])+"_pt"+string(argv[6])+"_mu"+string(argv[5])+"_";
-  string output = "../../rootfiles_LHC13_1/"+string(argv[2])+"_"+string(argv[3])+"_mt"+string(argv[4])+"_pt"+string(argv[6])+"_mu"+string(argv[5]);
+  string output = "../../rootfiles_CMS/"+string(argv[2])+"_"+string(argv[3])+"_mt"+string(argv[4])+"_pt"+string(argv[6])+"_mu"+string(argv[5]);
 
   std::cout<<"## "<<prefix<<endl;
 
@@ -320,7 +273,12 @@ int main(int argc, char* argv[6]){
     if ( hnames[i].find("_24_") != string::npos){
       value=CombineData(prefix,hnames[i],bwidth_24,output,bool_NLO);
       if(value==0) return 0;
-    } 
+    }
+    if ( hnames[i].find("_CMS13TeV_") != string::npos){
+      value=CombineData(prefix,hnames[i],bwidth_CMS13TeV,output,bool_NLO);
+      if(value==0) return 0;
+    }
+    
   }
 
 }

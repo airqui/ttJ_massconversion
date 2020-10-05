@@ -12,7 +12,7 @@
 
 using namespace std;
 
-double data[100][100][3]={0.};
+double data[300][300][3]={0.};
 float alphasNLO=0.;
 int first=0;
 
@@ -49,7 +49,6 @@ private:
 	      std::sscanf(char_array,"%*s %*s %*s %f",&alphasNLO);
 	    }     
 	    inside++;
-	    cout<< line << endl;
 	  }
 	  first=1;
  	}
