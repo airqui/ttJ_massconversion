@@ -21,15 +21,22 @@
 
 Double_t z[100],ez[100], rho[100],erho[100];
 Double_t par_a[100],par_b[100], par_c[100];
-int bintoremove=9;
+int bintoremove=5;
 double mass=0;
 double emass=0;
 
 double integral_recorded=0;
 
-const Int_t nbins=12;
+//fixed bin size
+//const Int_t nbins=12;
+//double bin_size[100];
+//for (int i=0; i<100; i++) bin_size[i]=1.2/double(nbins);
 
-double bin_size=1.2/double(nbins);
+const Int_t nbins=10;
+//double bin_size[] = {0.25, 0.075, 0.1, 0.1, 0.150,0.325}; // ATLAS 7 TeV
+//double bin_size[] = {0.25, 0.075, 0.1, 0.1, 0.150, 0.05, 0.05,0.225}; // ATLAS 8 TeV
+double bin_size[] = {0.18, 0.04, 0.05, 0.05, 0.06, 0.07,0.08, 0.09, 0.09, 0.29}; //_CMS
+
 //______________________________________________________________________________
 
 Double_t func_pol1(int i,Double_t *par)
@@ -61,7 +68,7 @@ void fcn_theory(Int_t &npar, Double_t *gin, Double_t &f, Double_t *par, Int_t if
 
   for (i=0;i<nbins; i++) {
     if(i!=bintoremove && z[i]>0 && func_pol1(i,par)>0) {
-      delta  = pow(z[i]-integral_recorded*bin_size*func_pol1(i,par),2)/(bin_size*func_pol1(i,par));
+      delta  = pow(z[i]-integral_recorded*bin_size[i]*func_pol1(i,par),2)/(bin_size[i]*func_pol1(i,par));
       chisq += delta;
     }
   }
@@ -99,7 +106,7 @@ void parametrize_fitfunction(TString pdf="CT10",TString energy="13TeV", int mass
   for(int i=0; i<interval; i++){
     TString mt="_mt";
     if(scheme == "running" ) mt="_mtrun";
-     TString file="../../rootfiles_LHC13_1/"+energy+"_"+pdf+mt+TString::Format("%i",mass+i)+"_pt30_"+scale+".root";
+     TString file="../../rootfiles_CMS/"+energy+"_"+pdf+mt+TString::Format("%i",mass+i)+"_pt30_"+scale+".root";
      masspoints.push_back(readGraph(file,title,true));
   }
 
@@ -117,6 +124,78 @@ void parametrize_fitfunction(TString pdf="CT10",TString energy="13TeV", int mass
       yv[j]=y[i];
       eyv[j]=ey[i]; 
       xv[j]=double(mass)+double(j)*double(step);
+      //      cout<<i<<" "<<j<<" "<<xv[j]<<" "<<yv[j]<<endl;
+      exv[j]=0;
+      n++;
+    }
+    TGraphErrors * temp = new TGraphErrors(n,xv,yv,exv,eyv);
+    bin.push_back(temp);
+  }
+
+  //  TCanvas *canvas= new TCanvas ("fit1","fit1",1200,1800);
+  //canvas->Divide(5,5);
+  
+
+  for(int i=0; i<masspoints.at(0)->GetN(); i++) {
+    TF1 *ftemp = new TF1("ftemp", "[0]+[1]*(x-173)+[2]*(x-173)*(x-173)");
+    bin.at(i)->Fit("ftemp","EQ");
+    par_a[i]=ftemp->GetParameter(0);
+    par_b[i]=ftemp->GetParameter(1);
+    par_c[i]=ftemp->GetParameter(2);
+
+    //canvas->cd(i+1);
+    //bin.at(i)->GetYaxis()->SetRangeUser(0,3);
+    //bin.at(i)->Draw("alp");
+    
+  }
+
+
+}
+
+
+
+void parametrize_fitfunctionCMS(TString pdf="CT10",TString energy="13TeV",  TString scheme="pole", TString scale="mu1", TString title="n3_24_pt50")
+{
+
+  gROOT->Reset();
+  SetAtlasStyle();
+  gStyle->SetOptFit(0);
+  gStyle->SetOptStat(0);
+
+  
+  double mass_d[7];
+  mass_d[0]=166.5;
+  mass_d[1]=169.5;
+  mass_d[2]=171.5;
+  mass_d[3]=172.5;
+  mass_d[4]=173.5;
+  mass_d[5]=175.5;
+  mass_d[6]=178.5;
+
+  int interval=7;
+  
+  std::vector<TGraphErrors *> masspoints;
+  for(int i=0; i<interval; i++){
+    TString mt="_mt";
+    if(scheme == "running" ) mt="_mtrun";
+    TString file="../../rootfiles_CMS/"+energy+"_"+pdf+mt+TString::Format("%.1f",mass_d[i])+"_pt30_"+scale+".root";
+    masspoints.push_back(readGraph(file,title,true));
+  }
+
+  std::vector<TGraphErrors *> bin;
+
+  for(int i=0; i<masspoints.at(0)->GetN(); i++) {
+
+    double yv[100], xv[100], eyv[100], exv[100];
+    int n=0;
+
+    for(int j=0; j<masspoints.size(); j++){
+      
+      Double_t *y=masspoints.at(j)->GetY();
+      Double_t *ey=masspoints.at(j)->GetEY();
+      yv[j]=y[i];
+      eyv[j]=ey[i]; 
+      xv[j]=mass_d[j];
       //      cout<<i<<" "<<j<<" "<<xv[j]<<" "<<yv[j]<<endl;
       exv[j]=0;
       n++;
@@ -200,12 +279,19 @@ void Fit(bool error = true){
 
 }
 
-void extraerdatos(TString pdf="CT10",TString energy="13TeV", int mass=170,  TString scheme="pole", TString scale="mu1", TString title="n3_24_pt50")
+void extraerdatos(TString pdf="CT10",TString energy="13TeV", double mass=170,  TString scheme="pole", TString scale="mu1", TString title="n3_24_pt50")
 {
 
+  
   TString mt="_mt";
+  
   if(scheme == "running" ) mt="_mtrun";
-  TString file="../../rootfiles_LHC13_1/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale+".root";
+  TString file;
+  cout<<mass<<" "<<(int)mass<<endl;
+  if( (mass - (int)mass) >0 ) file = "../../rootfiles_CMS/"+energy+"_"+pdf+mt+TString::Format("%.1f",mass)+"_pt30_"+scale+".root";
+  else file = "../../rootfiles_CMS/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale+".root";
+
+
   TGraphErrors * masspoint = readGraph(file,title,true);
   
   Double_t *y=masspoint->GetY();
@@ -216,8 +302,8 @@ void extraerdatos(TString pdf="CT10",TString energy="13TeV", int mass=170,  TStr
   double  integral=0;
   for(int i=0; i<masspoint->GetN(); i++) {
     if(y[i]>0) {
-      y[i]*=bin_size*130*100;
-      ey[i]*=bin_size*130*100;
+      y[i]*=bin_size[i]*130*100;
+      ey[i]*=bin_size[i]*130*100;
       integral+=y[i];
     }
   }
@@ -238,7 +324,7 @@ void extraerdatos_randomize(TString pdf="CT10",TString energy="13TeV", int mass=
 
   TString mt="_mt";
   if(scheme == "running" ) mt="_mtrun";
-  TString file="../../rootfiles_LHC13_1/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale+".root";
+  TString file="../../rootfiles_CMS/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale+".root";
   TGraphErrors * masspoint = readGraphNotNorm(file,title);
   Double_t *y=masspoint->GetY();
   Double_t *ey=masspoint->GetEY();
@@ -249,7 +335,7 @@ void extraerdatos_randomize(TString pdf="CT10",TString energy="13TeV", int mass=
 
   double integral = 0;
   for(int i=0; i<masspoint->GetN(); i++) {
-    double ytemp=y[i]*bin_size*100*130*0.05;
+    double ytemp=y[i]*bin_size[i]*100*130*0.05;
     
     TRandom *r3 = new TRandom1();
     r3->SetSeed(seed);
@@ -278,13 +364,13 @@ void extraerdatos_randomize_scale(TString pdf="CT10",TString energy="13TeV", int
 
   TString mt="_mt";
   if(scheme == "running" ) mt="_mtrun";
-  TString file="../../rootfiles_LHC13_1/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale+".root";
+  TString file="../../rootfiles_CMS/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale+".root";
   TGraphErrors * masspoint = readGraphNotNorm(file,title);
 
-  file="../../rootfiles_LHC13_1/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale_up+".root";
+  file="../../rootfiles_CMS/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale_up+".root";
   TGraphErrors * masspoint_up = readGraphNotNorm(file,title);
   
-  file="../../rootfiles_LHC13_1/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale_down+".root";
+  file="../../rootfiles_CMS/"+energy+"_"+pdf+mt+TString::Format("%i",mass)+"_pt30_"+scale_down+".root";
   TGraphErrors * masspoint_down = readGraphNotNorm(file,title);
   
   Double_t *y=masspoint->GetY();
@@ -299,8 +385,8 @@ void extraerdatos_randomize_scale(TString pdf="CT10",TString energy="13TeV", int
 
   double integral = 0;
   for(int i=0; i<masspoint->GetN(); i++) {
-    double ytemp=y[i]*bin_size;
-    double eytemp=max(fabs(ydown[i]-yup[i]),max(fabs(y[i]-yup[i]),fabs(ydown[i]-y[i])))*bin_size;
+    double ytemp=y[i]*bin_size[i];
+    double eytemp=max(fabs(ydown[i]-yup[i]),max(fabs(y[i]-yup[i]),fabs(ydown[i]-y[i])))*bin_size[i];
 
     TRandom *r3 = new TRandom1();
     r3->SetSeed(seed);

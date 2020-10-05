@@ -85,10 +85,15 @@ int ScaleVarPole(){
   std::vector<std::vector<double> >emasa_pt;
 
   TString pt[4];
-  pt[0]="n3_12_pt30";
-  pt[1]="n3_12_pt50";
-  pt[2]="n3_12_pt75";
-  pt[3]="n3_12_pt100";
+  //  pt[0]="n3_12_pt30";
+  //pt[1]="n3_12_pt50";
+  // pt[2]="n3_12_pt75";
+  //pt[3]="n3_12_pt100";
+
+  pt[0]="n3_CMS13TeV_pt30";
+  pt[1]="n3_CMS13TeV_pt50";
+  pt[2]="n3_CMS13TeV_pt75";
+  pt[3]="n3_CMS13TeV_pt100";
 
   for(int j=0; j<4; j++) {
 
@@ -96,10 +101,13 @@ int ScaleVarPole(){
       
     for(int i=0; i<3; i++) {
 	
-      if(i==0) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu0.5",pt[j]);
-      if(i==1) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu1",pt[j]);
-      if(i==2) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu2",pt[j]);
-      extraerdatos("CT10","LHC13", 173,"pole", "mu1",pt[j]);
+      //if(i==0) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu0.5",pt[j]);
+      //if(i==1) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu1",pt[j]);
+      //if(i==2) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu2",pt[j]);
+      if(i==0) parametrize_fitfunctionCMS("CT10","LHC13", "pole", "mu0.5",pt[j]);
+      if(i==1) parametrize_fitfunctionCMS("CT10","LHC13", "pole", "mu1",pt[j]);
+      if(i==2) parametrize_fitfunctionCMS("CT10","LHC13", "pole", "mu2",pt[j]);
+      extraerdatos("CT10","LHC13", 172.5,"pole", "mu1",pt[j]);
 	
       //extraerdatos("CT10","LHC13", 173,"pole", "mu1",pt[j]);
       Fit(false);
@@ -449,8 +457,8 @@ int makeFit_pol(){
 
   // int statvar=statvariations(2000);
   //int scalevar=scalevariations(5000);
-  int scale=ScaleVarRun();
-
+  // int scale=ScaleVarRun();
+  int scale=ScaleVarPole();
   return 0;
 }
 
