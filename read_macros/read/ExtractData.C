@@ -1,10 +1,57 @@
- LO->Write();
+#include "../include/ExtractData.h"
+#include "../include/histograms.h"
+
+#include "TFile.h"
+#include "TNtuple.h"
+#include "TMath.h"
+#include "TTree.h"
+#include "TGraph.h"
+#include "TGraphErrors.h"
+#include "TH1F.h"
+#include "TKey.h"
+#include "TVectorD.h"
+
+int SaveGraphs(string prefix, string hname, int nlines, double bwidth[], double lores[][3]){
+
+  TFile *f1 = new  TFile(TString(prefix)+".root","UPDATE");
+
+  TKey *key = f1->FindKey(TString(hname)+"_LO");
+  if(key != 0) {
+    cout<< " ERROR:   HISTOGRAM "<<hname <<" in ROOT FILE: "<<TString(prefix)<<".root ALREADY EXISTS  --> STOP !"<<endl;
+    return 0;
+  }
+
+  TKey *key2 = f1->FindKey("alphas_over_pi");
+  if (key2 == 0)  {
+    //    cout<<" Write Alpha"<<endl;
+    TVectorD *a = new TVectorD(1);
+    a[0] = alphasNLO/TMath::Pi();
+    a->Write("alphas_over_pi");
+  }
+
+  f1->cd();
+
+  double x[100], ex[100], y[100], ey[100];
 
 
- f1->Close();
- 
- return 1;
+  // leading order cont.
+  for(int i=0; i<nlines; i++) {
+    x[i]=lores[i][0];
+    ex[i]=bwidth[i]/2.;
+    y[i]=lores[i][1];
+    ey[i]=lores[i][2];
+  }
+
+  TGraphErrors *LO = new TGraphErrors(nlines,x,y,ex,ey);
+  LO->SetName(TString(hname)+"_LO");
+  LO->Write();
+
+
+  f1->Close();
+
+  return 1;
 }
+
 
 int SaveGraphs(string prefix, string hname, int nlines, double bwidth[], double lores[][3], double nlores[][3], double res[][3]){
 
@@ -141,16 +188,20 @@ int CombineData(string prefix, string hname, double bwidth[],string output, bool
   /*
    * Combine NLO processes...
    */
+    int check1=0, check2=0; 
     for (int iproc=0; iproc<20;iproc++){
       Parser parser(prefix+procs_nlo[iproc]+".log", "THERMALIZE STOP",
 		  "# Final result",hname);
       double fac=1;
-      if (procs_nlo[iproc].find("proc7") != string::npos){
+    
+      if (procs_nlo[iproc].find("real_7") != string::npos){
 	fac = 5.;
+	check1 = 1;
       }
-      if (procs_nlo[iproc].find("proc13") != string::npos){
+      if (procs_nlo[iproc].find("real_13") != string::npos){
 	fac = 4.;
-      }
+	check2=1;
+      } 
       nlines=parser.lcount;
       N = parser.hcount;
       double avg[300][3]={0.};
@@ -166,23 +217,28 @@ int CombineData(string prefix, string hname, double bwidth[],string output, bool
       
 	if( avg[j][2] >0 ){
 	  avg[j][1] /= avg[j][2];
-	  avg[j][2] =1/avg[j][2];
+	  avg[j][2] =sqrt(1./avg[j][2]);
 	} else{
 	  avg[j][1]=0;
 	  avg[j][2]=0;
 	}
 	
-	if (fac!=1.){
+	/*	if (fac!=1.){
 	  avg[j][1] *= fac;
 	  avg[j][2] *= fac;
-	}
+	  }*/
 	
         nlores[j][0] = avg[j][0];
         nlores[j][1] += avg[j][1];
-        nlores[j][2] += avg[j][2] * avg[j][2]; 
+        nlores[j][2] += fac * avg[j][2] * avg[j][2]; 
       }
        
     }
+
+    if (check1*check2 == 0 ){
+      cout << "Something went wrong, not all factors included.\n";
+      exit(-1);
+    } 
     
     for(int j=0;j<nlines;j++){
       nlores[j][2] = sqrt( nlores[j][2] );
