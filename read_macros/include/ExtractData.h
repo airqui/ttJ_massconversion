@@ -87,7 +87,6 @@ private:
 	cout<<itcount<<" "<<cross[itcount]<<endl;
 	itcount++;
 	}*/
-      
       //      if ( line.find("# HISTSTART: " + histname) != string::npos ){
       if (  (line.find("# HISTSTART: " + histname) != string::npos)
 	    && ( ("# HISTSTART: " + histname).length() == line.length() ) )  {

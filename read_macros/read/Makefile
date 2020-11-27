@@ -17,11 +17,11 @@ PROGNAME = ExtractData
 BINSRCS = $(PROGNAME).C 
 
 USERINCLUDES = `$(ROOTSYS)/bin/root-config --cflags` -std=c++11
-USERINCLUDES += `$(FASTJET)/bin/fastjet-config --cxxflags`
+#USERINCLUDES += `$(FASTJET)/bin/fastjet-config --cxxflags`
 
 #-I/usr/local/include/fastjet
 USERLIBS += `$(ROOTSYS)/bin/root-config --libs`
-USERLIBS += `$(FASTJET)/bin/fastjet-config --libs --plugins`
+#USERLIBS += `$(FASTJET)/bin/fastjet-config --libs --plugins`
 
 #-L/usr/local/lib -lfastjet
 
