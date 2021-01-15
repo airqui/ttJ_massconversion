@@ -85,16 +85,9 @@ TGraphErrors* readGraph(TString filename,TString title) {
   return results;
 }
 
-void Plots2Dist_mass() {
-  
-  // input
-  TString scheme="pole";
-  TString pdf="CT18NLO";
-  TString energy="LHC13";
-  TString title="n3_24_";
-  TString ptcut="pt50";
-  float mass=173;
-  
+void Plots2Dist_mass( TString scheme="pole", TString energy="LHC13",  TString pdf ="CT18NLO", TString title="n3_24_",TString ptcut="pt50", float mass=173){
+
+   
   TString folder_root="../../data/LHC13_CT18NLO/rootfiles/";
 
   gROOT->Reset();
@@ -218,16 +211,9 @@ void Plots2Dist_mass() {
 
 
 
-void Plots2Dist_scale() {
-  
-  // input
-  TString scheme="pole";
-  TString pdf="CT18NLO";
-  TString energy="LHC13";
-  TString title="n3_24_";
-  TString ptcut="pt50";
-  float mass=173;
-  
+void Plots2Dist_scale( TString scheme="pole", TString energy="LHC13", TString pdf ="CT18NLO", TString title="n3_24_",TString ptcut="pt50", float mass=173){
+
+   
   TString folder_root="../../data/LHC13_CT18NLO/rootfiles/";
 
   gROOT->Reset();
@@ -347,14 +333,7 @@ void Plots2Dist_scale() {
   
   
 
-void Plots2Dist_pdf() {
-  
-  // input
-  TString scheme="pole";
-  TString energy="LHC13";
-  TString title="n3_24_";
-  TString ptcut="pt50";
-  float mass=173;
+void Plots2Dist_pdf( TString scheme="pole", TString energy="LHC13",  TString title="n3_24_",TString ptcut="pt50", float mass=173){
 
   TString pdf1="CT18NLO";
   TString folder_root1="../../data/LHC13_"+pdf1+"/rootfiles/";
@@ -527,8 +506,14 @@ void Plots2Dist_pdf() {
  
 void Plots2Dist(){
 
-  Plots2Dist_pdf();
-  Plots2Dist_scale();
-  Plots2Dist_mass();
+  //void Plots2Dist_scale( TString scheme="pole", TString energy="LHC13",  TString title="n3_24_",TString ptcut="pt50", float mass=173){
+
+  // Plots2Dist_pdf("pole","LHC13","n3_24_","pt50",173);
+  //Plots2Dist_scale("pole","LHC13","n3_24_","pt50",173);
+  //Plots2Dist_mass("pole","LHC13","n3_24_","pt50",173);
+
+  Plots2Dist_pdf("running","LHC13","n3_12_","pt50",173);
+  Plots2Dist_scale("running","LHC13","CT18NLO","n3_12_","pt50",173);
+  Plots2Dist_mass("running","LHC13","CT18NLO","n3_12_","pt50",173);
 
 }
