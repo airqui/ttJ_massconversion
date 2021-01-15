@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -20,7 +21,7 @@
 #include "../include/R_LOderivative.h"
 
 
-void Conversion(TString energy = "LHC13", TString pdf="CT10", TString distribution="n3_24_pt30",float mass=163,TString scale="1",float delta_m=0.5, TFile *f1=NULL, std::streambuf* osbuf = nullptr, bool write=true){
+void Conversion(TString folder="../../roofiles/", TString energy = "LHC13", TString pdf="CT10", TString distribution="n3_24_pt30",float mass=163,TString scale="1",float delta_m=0.5, TFile *f1=NULL, std::streambuf* osbuf = nullptr, bool write=true){
 
   TString mt=TString::Format("%.0f",mass);
   TString s_delta="05";
@@ -33,11 +34,11 @@ void Conversion(TString energy = "LHC13", TString pdf="CT10", TString distributi
   //1 Read the bin size, needed for th normnalization
   std::vector<double> width;
   cout<<"READ BINS "<<endl;
-  width=width_bin(energy,pdf,distribution,mt,scale);
+  width=width_bin(folder,energy,pdf,distribution,mt,scale);
 
   std::vector<double> rho_s_v;
   cout<<"READ bins 2 "<<endl;
-  rho_s_v=bin(energy,pdf,distribution,mt,scale);
+  rho_s_v=bin(folder,energy,pdf,distribution,mt,scale);
 
 
   int nbins=width.size();
@@ -52,18 +53,18 @@ void Conversion(TString energy = "LHC13", TString pdf="CT10", TString distributi
   
   //Calculate the LO derivative using two points (+delta, -delta)
   std::vector<double> der;
-  der=get_LOderivative_5p(energy,pdf,distribution+"_LO",mass,scale,delta_m,false);
+  der=get_LOderivative_5p(folder,energy,pdf,distribution+"_LO",mass,scale,delta_m,false);
 
   //2 Extract the NLO N3 distribution (not normalized) and the alpha_s value (over pi)
   std::vector<double> value_0;
-  value_0=get_Distribution(energy,pdf,distribution+"_LO",mt,scale);//get only the LO contribution
+  value_0=get_Distribution(folder,energy,pdf,distribution+"_LO",mt,scale);//get only the LO contribution
 
   std::vector<double>  value_1;
-  value_1=get_Distribution(energy,pdf,distribution,mt,scale);//get full NLO distribution
+  value_1=get_Distribution(folder,energy,pdf,distribution,mt,scale);//get full NLO distribution
   
   //3 alpha s value
   double alphas;
-  alphas=as(energy,pdf,mt,scale);
+  alphas=as(folder,energy,pdf,mt,scale);
   
   // 4 Make the conversion
   double cross_running[100];
@@ -143,9 +144,11 @@ void Conversion(TString energy = "LHC13", TString pdf="CT10", TString distributi
 
 void RunningConversion() {
 
+  TString folder="/rootfiles/";
   TString energy="LHC13";
-  TString pdf="CT10";
-
+  TString pdf="ABMP16_5_nlo";
+  folder="../../ready/"+energy+"_"+pdf+folder;
+  
   for(int j=158; j<169; j++) {
     
     double mass=double(j);
@@ -155,18 +158,27 @@ void RunningConversion() {
       TString scale="1";
       if(k==1) scale="0.5";
       if(k==2) scale="2";
-      string hnames[] = {"n3_ATLAS7TeV_pt30","n3_ATLAS7TeV_pt50","n3_ATLAS7TeV_pt75","n3_ATLAS7TeV_pt100","n3_ATLAS8TeV_pt30","n3_ATLAS8TeV_pt50","n3_ATLAS8TeV_pt75","n3_ATLAS8TeV_pt100","n3_12_pt30","n3_12_pt50","n3_12_pt75","n3_12_pt100","n3_24_pt30","n3_24_pt50","n3_24_pt75","n3_24_pt100"};
+      string hnames[] = {
+			 "n3_ATLAS7TeV_pt30","n3_ATLAS7TeV_pt50","n3_ATLAS7TeV_pt75","n3_ATLAS7TeV_pt100",
+			 "n3_ATLAS8TeV_pt30","n3_ATLAS8TeV_pt50","n3_ATLAS8TeV_pt75","n3_ATLAS8TeV_pt100",
+			 "n3_12_pt30","n3_12_pt50","n3_12_pt75","n3_12_pt100",
+			 "n3_24_pt30","n3_24_pt50","n3_24_pt75","n3_24_pt100",
+			 "n3_CMS13TeV_pt30","n3_CMS13TeV_pt50","n3_CMS13TeV_pt75","n3_CMS13TeV_pt100",
+			 "n3_CMS13TeV_pt30_eta2p4","n3_CMS13TeV_pt50_eta2p4","n3_CMS13TeV_pt75_eta2p4","n3_CMS13TeV_pt100_eta2p4",
+			 "n3_CMS13TeV_b2_pt30","n3_CMS13TeV_b2_pt50","n3_CMS13TeV_b2_pt75","n3_CMS13TeV_b2_pt100",
+			 "n3_CMS13TeV_b2_pt30_eta2p4","n3_CMS13TeV_b2_pt50_eta2p4","n3_CMS13TeV_b2_pt75_eta2p4","n3_CMS13TeV_b2_pt100_eta2p4"
+      };
       
-      TString outputfile = "../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mtrun"+TString::Format("%.0f",mass)+"_pt30_mu"+scale+".root";
+      TString outputfile = folder+energy+"_"+pdf+"_mtrun"+TString::Format("%.0f",mass)+"_pt30_mu"+scale+".root";
       TFile *f1 = new  TFile;
       f1 = new  TFile(outputfile,"RECREATE");
       cout<<outputfile<<endl;
 
 
-      ofstream fout ("../../logfiles_LHC13_1/"+energy+"_"+pdf+"_mtrun"+TString::Format("%.0f",mass)+"_pt30_mu"+scale+".log");
+      ofstream fout ("../../ready/"+energy+"_"+pdf+"/results/"+energy+"_"+pdf+"_mtrun"+TString::Format("%.0f",mass)+"_pt30_mu"+scale+".log");
       for (unsigned i = 0; i<sizeof(hnames)/sizeof(string); i++){
 	cout<<" hnames "<<hnames[i]<<endl;
-	Conversion("LHC13","CT10",TString(hnames[i]),mass,scale,0.5, f1,fout.rdbuf(),true);
+	Conversion(folder,energy,pdf,TString(hnames[i]),mass,scale,0.5, f1,fout.rdbuf(),true);
       }
     }
 
