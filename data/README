@@ -1,0 +1,8 @@
+Here the Raw Data and Merged histograms go.
+Standard folder structure:
+
+LHC13_CT10nlo/
+	output/ (main raw files)
+	output_xxx/ (extra runs for few processes)
+	results/ (ascii files with the merged histograms)
+	rootfiles/ (root files with the same info than the ascii files)

@@ -138,6 +138,7 @@ int CombineData(string prefix, string hname, double bwidth[],string output, bool
   for (int iproc=0; iproc<4;iproc++){
     Parser parser(prefix+procs_lo[iproc]+".log", "THERMALIZE STOP",
 		  "# Final result",hname);
+
     nlines = parser.lcount;
     N = parser.hcount;
     double avg[300][3]={0.};
@@ -271,29 +272,29 @@ int main(int argc, char* argv[6]){
 
   std::cout << "## Running Histogram Merging " << std::endl;
   std::cout<<"## Number of arguments (all as strings): "<<argc<<std::endl;
-  if(argc < 8)    {
+  if(argc < 7)    {
     std::cout << "## Not enough arguments provided"<<std::endl;
     std::cout<<"## Expected arguments: input_folder Energy (i.e. LHC14) PDF pole_mass scale (i.e. 1,2,0.5) ptcut  order (LO or NLO)"<<" "<<argv[1]<<std::endl;
     return 0;
   }
 
-  TString order=TString(argv[7]);
+  TString order=TString(argv[6]);
   if(order != "NLO" && order != "LO")    std::cout << "## Wrong order of the chose calcualtion: LO or NLO ?"<<std::endl;
   
   bool bool_NLO=true;
   if(order=="LO") bool_NLO=false;
   
 
-  std::cout<<"## input_folder: "<<" "<<argv[1]<<std::endl;
-  std::cout<<"## Energy "<<" "<<argv[2]<<std::endl;
-  std::cout<<"## PDF "<<" "<<argv[3]<<std::endl;
-  std::cout<<"## mtpole "<<" "<<argv[4]<<std::endl;
-  std::cout<<"## scale "<<" "<<argv[5]<<std::endl;
-  std::cout<<"## ptcut "<<" "<<argv[6]<<std::endl;
-  std::cout<<"## order (LO or NLO) "<<" "<<argv[7]<<std::endl;
+  //  std::cout<<"## input_folder: "<<" "<<argv[1]<<std::endl;
+  std::cout<<"## Energy "<<" "<<argv[1]<<std::endl;
+  std::cout<<"## PDF "<<" "<<argv[2]<<std::endl;
+  std::cout<<"## mtpole "<<" "<<argv[3]<<std::endl;
+  std::cout<<"## scale "<<" "<<argv[4]<<std::endl;
+  std::cout<<"## ptcut "<<" "<<argv[5]<<std::endl;
+  std::cout<<"## order (LO or NLO) "<<" "<<argv[6]<<std::endl;
 
-  string prefix = "../../output_"+string(argv[1])+"/"+string(argv[2])+"_"+string(argv[3])+"_mt"+string(argv[4])+"_pt"+string(argv[6])+"_mu"+string(argv[5])+"_";
-  string output = "../../rootfiles_"+string(argv[2])+"_"+string(argv[3])+"/"+string(argv[2])+"_"+string(argv[3])+"_mt"+string(argv[4])+"_pt"+string(argv[6])+"_mu"+string(argv[5]);
+  string prefix = "../../ready/"+string(argv[1])+"_"+string(argv[2])+"/output/"+string(argv[1])+"_"+string(argv[2])+"_mt"+string(argv[3])+"_pt"+string(argv[5])+"_mu"+string(argv[4])+"_";
+  string output = "../../ready/"+string(argv[1])+"_"+string(argv[2])+"/rootfiles/"+string(argv[1])+"_"+string(argv[2])+"_mt"+string(argv[3])+"_pt"+string(argv[5])+"_mu"+string(argv[4]);
 
   std::cout<<"## "<<prefix<<endl;
 
