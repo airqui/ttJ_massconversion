@@ -22,22 +22,47 @@ using namespace std;
 
 
 
-TH1F *Histo(TGraphErrors* graph, int n=12) {
+TH1F *Histo(TGraphErrors* graph, TString distribution = "n3_12_") {
 
-  //  int n=2;
-  TH1F* h = new TH1F("h","h",n,-0.1,1.1); // the histogram (you should set the number of bins, the title etc)
 
   Double_t *y;
   Double_t *ey;
   y=graph->GetY();
   ey=graph->GetEY();
+
   
-  for(int i=0; i < graph->GetN(); ++i) {
-    h->SetBinContent(i+1,y[i]);
-    h->SetBinError(i+1,ey[i]);
+  if(distribution=="n3_12_" || distribution=="n3_12_" ) {
+    int n=12;
+    if(distribution=="n3_12_") n=12;
+    if(distribution=="n3_24_") n=24;
+    
+    //  int n=2;
+    TH1F* h = new TH1F("h","h",n,-0.1,1.1); // the histogram (you should set the number of bins, the title etc)
+
+    for(int i=0; i < graph->GetN(); ++i) {
+      h->SetBinContent(i+1,y[i]);
+      h->SetBinError(i+1,ey[i]);
+    }
+    
+    return h;
   }
 
-  return h;
+  if(distribution=="n3_CMS13TeV_" ){
+
+    Float_t bins[] = {0, 0.18, 0.22, 0.27, 0.32, 0.38, 0.45,0.53, 0.62, 0.71, 1.0};
+    Int_t  binnum = sizeof(bins)/sizeof(Float_t) - 1;
+    TH1F *h = new TH1F("h","h",binnum,bins);
+    for(int i=0; i < graph->GetN(); ++i) {
+      h->SetBinContent(i+1,y[i]);
+      h->SetBinError(i+1,ey[i]);
+    }
+
+    return h;    
+    
+  }
+
+  cout<<" Error when converting Graph to Histogram Histo() "<< "distribution="<<distribution<<endl;
+  return NULL;
 
 }
 
@@ -1083,47 +1108,56 @@ void DrawVector2(std::vector<TGraphErrors *> sens,  TString canvasname,std::vect
 
 
 
-void ReferencePlots(TString scheme="running", TString pdf="CT10", TString energy="LHC13", TString distribution="n3_12_", TString ptcut="pt50", int mass=170, int deltamass=5) {
+void ReferencePlots(TString scheme="running", TString pdf="CT10", TString energy="LHC13", TString distribution="n3_12_", TString ptcut="pt50", float mass=170, int deltamass=5) {
  
   gROOT->Reset();
   SetAtlasStyle();
   gStyle->SetOptFit(0);
   gStyle->SetOptStat(0);
 
-  TString folder_root="rootfiles_LHC13_1";
+  TString folder_root="rootfiles_CMS";
   
   TString title = distribution;
+
+  TString s_mass, s_mass_up, s_mass_down;
+
+  if( (mass - (int)mass) >0 ) {
+    s_mass = TString::Format("%.1f",mass);
+    s_mass_up=TString::Format("%.1f",mass+deltamass);
+    s_mass_down=TString::Format("%.1f",mass-deltamass);
+  } else {
+    s_mass = TString::Format("%i",mass);
+    s_mass_up=TString::Format("%i",mass+deltamass);
+    s_mass_down=TString::Format("%i",mass-deltamass);
+  }
   
-  TString filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass)+"_pt30_mu1.root";
-  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass)+"_pt30_mu1.root";
+  TString filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+s_mass+"_pt30_mu1.root";
+  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+s_mass+"_pt30_mu1.root";
   TGraphErrors *gref = readGraph(filename,title+ptcut,false);
   
-  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass)+"_pt30_mu2.root";
-  if(scheme=="pole")  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass)+"_pt30_mu2.root";
+  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+s_mass+"_pt30_mu2.root";
+  if(scheme=="pole")  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+s_mass+"_pt30_mu2.root";
   TGraphErrors *gref_scale_up = readGraph(filename,title+ptcut,false);
   
-  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass)+"_pt30_mu0.5.root";
-  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass)+"_pt30_mu0.5.root";
+  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+s_mass+"_pt30_mu0.5.root";
+  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+s_mass+"_pt30_mu0.5.root";
   TGraphErrors *gref_scale_down = readGraph(filename,title+ptcut,false);
 
-  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass+deltamass)+"_pt30_mu1.root";
-  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass+deltamass)+"_pt30_mu1.root";
+  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+s_mass_up+"_pt30_mu1.root";
+  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+s_mass_up+"_pt30_mu1.root";
   TGraphErrors *g_up = readGraph(filename,title+ptcut,false);
 
-  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+TString::Format("%i",mass-deltamass)+"_pt30_mu1.root";
-  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+TString::Format("%i",mass-deltamass)+"_pt30_mu1.root";
+  filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mtrun"+s_mass_down+"_pt30_mu1.root";
+  if(scheme=="pole") filename = "../../"+folder_root+"/"+energy+"_"+pdf+"_mt"+s_mass_down+"_pt30_mu1.root";
   TGraphErrors *g_down = readGraph(filename,title+ptcut,false);
 
-  int n=12;
-  if(distribution=="n3_12_") n=12;
-  if(distribution=="n3_24_") n=24;
+  
+  TH1F* h_gref_scale_up = Histo(gref_scale_up,distribution);
+  TH1F* h_gref = Histo(gref,distribution);
+  TH1F* h_gref_scale_down = Histo(gref_scale_down,distribution);
 
-  TH1F* h_gref_scale_up = Histo(gref_scale_up,n);
-  TH1F* h_gref = Histo(gref,n);
-  TH1F* h_gref_scale_down = Histo(gref_scale_down,n);
-
-  TH1F* h_g_up = Histo(g_up,n);
-  TH1F* h_g_down = Histo(g_down,n);
+  TH1F* h_g_up = Histo(g_up,distribution);
+  TH1F* h_g_down = Histo(g_down,distribution);
 
   TCanvas *canv0 = new TCanvas ("new0","new0",1000,800);
    
@@ -1211,13 +1245,13 @@ void ReferencePlots(TString scheme="running", TString pdf="CT10", TString energy
   TLegend *leg1 = new TLegend(0.55,0.7,0.9,0.9);//Variables
   leg1->SetHeader(energy+", "+ptcut);
   if(scheme=="running") {
-    leg1->AddEntry(h_g_up,TString::Format("m(m)=%i GeV, #mu=m(m)",mass+deltamass),"l");
-    leg1->AddEntry(h_gref,TString::Format("m(m)=%i GeV, #mu=m(m)",mass),"l");
-    leg1->AddEntry(h_g_down,TString::Format("m(m)=%i GeV, #mu=m(m)",mass-deltamass),"l");
+    leg1->AddEntry(h_g_up,TString::Format("m(m)=%s GeV, #mu=m(m)",s_mass_up.Data()),"l");
+    leg1->AddEntry(h_gref,TString::Format("m(m)=%s GeV, #mu=m(m)",s_mass.Data()),"l");
+    leg1->AddEntry(h_g_down,TString::Format("m(m)=%s GeV, #mu=m(m)",s_mass_down.Data()),"l");
   } else {
-    leg1->AddEntry(h_g_up,TString::Format("M_{t}=%i GeV, #mu=M_{t}",mass+deltamass),"l");
-    leg1->AddEntry(h_gref,TString::Format("M_{t}=%i GeV, #mu=M_{t}",mass),"l");
-    leg1->AddEntry(h_g_down,TString::Format("M_{t}=%i GeV, #mu=M_{t}",mass-deltamass),"l");
+    leg1->AddEntry(h_g_up,TString::Format("M_{t}=%s GeV, #mu=M_{t}",s_mass_up.Data()),"l");
+    leg1->AddEntry(h_gref,TString::Format("M_{t}=%s GeV, #mu=M_{t}",s_mass.Data()),"l");
+    leg1->AddEntry(h_g_down,TString::Format("M_{t}=%s GeV, #mu=M_{t}",s_mass_down.Data()),"l");
   }
 
   leg1->SetLineWidth(0);
@@ -1277,15 +1311,15 @@ void ReferencePlots(TString scheme="running", TString pdf="CT10", TString energy
   TLegend *leg2 = new TLegend(0.55,0.7,0.9,0.9);//Variables
   leg2->SetHeader(energy+", "+ptcut);
   if(scheme=="running") {
-    leg2->AddEntry(g_scale_up,TString::Format("m(m)=%i GeV, #mu=2#timesm(m)",mass),"lpe");
-    leg2->AddEntry(g_scale_down,TString::Format("m(m)=%i GeV, #mu=m(m)/2",mass),"lpe");
-    leg2->AddEntry(g_mass_up,TString::Format("m(m)=%i GeV, #mu=m(m)",mass+5),"lpe");
-    leg2->AddEntry(g_mass_down,TString::Format("m(m)=%i GeV, #mu=m(m)",mass-5),"lpe");
+    leg2->AddEntry(g_scale_up,TString::Format("m(m)=%s GeV, #mu=2#timesm(m)",s_mass.Data()),"lpe");
+    leg2->AddEntry(g_scale_down,TString::Format("m(m)=%s GeV, #mu=m(m)/2",s_mass.Data()),"lpe");
+    leg2->AddEntry(g_mass_up,TString::Format("m(m)=%s GeV, #mu=m(m)",s_mass_up.Data()),"lpe");
+    leg2->AddEntry(g_mass_down,TString::Format("m(m)=%s GeV, #mu=m(m)",s_mass_down.Data()),"lpe");
   } else {
-    leg2->AddEntry(g_scale_up,TString::Format("M_{t}=%i GeV, #mu=2#timesM_{t}",mass),"lpe");
-    leg2->AddEntry(g_scale_down,TString::Format("M_{t}=%i GeV, #mu=M_{t}/2",mass),"lpe");
-    leg2->AddEntry(g_mass_up,TString::Format("M_{t}=%i GeV, #mu=M_{t}",mass+5),"lpe");
-    leg2->AddEntry(g_mass_down,TString::Format("M_{t}=%i GeV, #mu=M_{t}",mass-5),"lpe");
+    leg2->AddEntry(g_scale_up,TString::Format("M_{t}=%s GeV, #mu=2#timesM_{t}",s_mass.Data()),"lpe");
+    leg2->AddEntry(g_scale_down,TString::Format("M_{t}=%s GeV, #mu=M_{t}/2",s_mass.Data()),"lpe");
+    leg2->AddEntry(g_mass_up,TString::Format("M_{t}=%s GeV, #mu=M_{t}",s_mass_up.Data()),"lpe");
+    leg2->AddEntry(g_mass_down,TString::Format("M_{t}=%s GeV, #mu=M_{t}",s_mass_down.Data()),"lpe");
   }
 
   leg2->SetLineWidth(0);

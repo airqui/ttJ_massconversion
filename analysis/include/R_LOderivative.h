@@ -21,9 +21,9 @@ using namespace std;
 
 //  for(int i=0; i<2 ; i++) {
 
-double as(TString energy ="LHC13", TString pdf ="CT10",TString mt="164", TString scale="1"){
+double as(TString folder="../../roofiles/", TString energy ="LHC13", TString pdf ="CT10",TString mt="164", TString scale="1"){
 
-  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mt=folder+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
 
   cout<<" ------------------------------ " <<s_mt<<endl;
   TFile f_mt(s_mt);
@@ -36,9 +36,9 @@ double as(TString energy ="LHC13", TString pdf ="CT10",TString mt="164", TString
 }
 
 
-std::vector<double> get_Distribution(TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30",TString mt="164", TString scale="1"){
+std::vector<double> get_Distribution(TString folder="../../roofiles/", TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30",TString mt="164", TString scale="1"){
 
-  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mt=folder+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
   cout<<s_mt<<endl;
   TFile f_mt(s_mt);
   TGraphErrors* N3_mt = (TGraphErrors*) f_mt.Get(distribution);
@@ -55,9 +55,9 @@ std::vector<double> get_Distribution(TString energy ="LHC13", TString pdf ="CT10
 
 }
 
-std::vector<double> width_bin(TString energy ="LHC13", TString pdf ="CT10", TString distribution="n3_24_pt30",TString mt="164", TString scale="1"){
+std::vector<double> width_bin(TString folder="../../roofiles/", TString energy ="LHC13", TString pdf ="CT10", TString distribution="n3_24_pt30",TString mt="164", TString scale="1"){
 
-  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mt=folder+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
   cout<<" width_bin "<<s_mt<<endl;
   
   TFile *f_mt = new TFile(s_mt,"READ");
@@ -77,9 +77,9 @@ std::vector<double> width_bin(TString energy ="LHC13", TString pdf ="CT10", TStr
 
 }
 
-std::vector<double> bin(TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30",TString mt="164", TString scale="1"){
+std::vector<double> bin(TString folder="../../roofiles/", TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30",TString mt="164", TString scale="1"){
 
-  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mt=folder+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
   cout<<" bins "<<s_mt<<endl;
 
   TFile f_mt(s_mt);
@@ -96,7 +96,7 @@ std::vector<double> bin(TString energy ="LHC13", TString pdf ="CT10",TString dis
 
 }
 
-std::vector<double> get_LOderivative_5p(TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30_LO", float mt_value=164, TString scale="1", double delta=0.5, bool draw=false){
+std::vector<double> get_LOderivative_5p(TString folder="../../roofiles/", TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30_LO", float mt_value=164, TString scale="1", double delta=0.5, bool draw=false){
 
 
   double par_aL[100], par_bL[100];
@@ -110,11 +110,11 @@ std::vector<double> get_LOderivative_5p(TString energy ="LHC13", TString pdf ="C
 
   cout<<mt<<" "<<mtminus<<" "<<mtplus<<endl;
 
-  TString s_mtminus2="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtminus2+"_pt30_mu"+scale+".root";
-  TString s_mtminus="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtminus+"_pt30_mu"+scale+".root";
-  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
-  TString s_mtplus="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtplus+"_pt30_mu"+scale+".root";
-  TString s_mtplus2="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtplus2+"_pt30_mu"+scale+".root";
+  TString s_mtminus2=folder+energy+"_"+pdf+"_mt"+mtminus2+"_pt30_mu"+scale+".root";
+  TString s_mtminus=folder+energy+"_"+pdf+"_mt"+mtminus+"_pt30_mu"+scale+".root";
+  TString s_mt=folder+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mtplus=folder+energy+"_"+pdf+"_mt"+mtplus+"_pt30_mu"+scale+".root";
+  TString s_mtplus2=folder+energy+"_"+pdf+"_mt"+mtplus2+"_pt30_mu"+scale+".root";
 
 
   TFile f_mtminus2(s_mtminus2);
@@ -316,7 +316,7 @@ std::vector<double> get_LOderivative_5p(TString energy ="LHC13", TString pdf ="C
 }
 
 
-std::vector<double> get_LOderivative(TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30_LO", float mt_value=164, TString scale="1", double delta=0.5, bool draw=true){
+std::vector<double> get_LOderivative(TString folder="../../roofiles/", TString energy ="LHC13", TString pdf ="CT10",TString distribution="n3_24_pt30_LO", float mt_value=164, TString scale="1", double delta=0.5, bool draw=true){
 
   gROOT->Reset();
   gStyle->SetOptFit(0);
@@ -341,9 +341,9 @@ std::vector<double> get_LOderivative(TString energy ="LHC13", TString pdf ="CT10
   TString mtminus=TString::Format("%.1f",mt_value-delta);
   cout<<mt<<" "<<mtminus<<" "<<mtplus<<endl;
 
-  TString s_mtminus="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtminus+"_pt30_mu"+scale+".root";
-  TString s_mt="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
-  TString s_mtplus="../../rootfiles_LHC13_1/"+energy+"_"+pdf+"_mt"+mtplus+"_pt30_mu"+scale+".root";
+  TString s_mtminus=folder+energy+"_"+pdf+"_mt"+mtminus+"_pt30_mu"+scale+".root";
+  TString s_mt=folder+energy+"_"+pdf+"_mt"+mt+"_pt30_mu"+scale+".root";
+  TString s_mtplus=folder+energy+"_"+pdf+"_mt"+mtplus+"_pt30_mu"+scale+".root";
 
 
   TFile f_mtminus(s_mtminus);
