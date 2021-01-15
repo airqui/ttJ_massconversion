@@ -508,12 +508,12 @@ void Plots2Dist(){
 
   //void Plots2Dist_scale( TString scheme="pole", TString energy="LHC13",  TString title="n3_24_",TString ptcut="pt50", float mass=173){
 
-  // Plots2Dist_pdf("pole","LHC13","n3_24_","pt50",173);
-  //Plots2Dist_scale("pole","LHC13","n3_24_","pt50",173);
-  //Plots2Dist_mass("pole","LHC13","n3_24_","pt50",173);
+  Plots2Dist_pdf("pole","LHC13","n3_24_","pt50",173);
+  Plots2Dist_scale("pole","LHC13","CT18NLO","n3_24_","pt50",173);
+  Plots2Dist_mass("pole","LHC13","CT18NLO","n3_24_","pt50",173);
 
-  Plots2Dist_pdf("running","LHC13","n3_12_","pt50",173);
-  Plots2Dist_scale("running","LHC13","CT18NLO","n3_12_","pt50",173);
-  Plots2Dist_mass("running","LHC13","CT18NLO","n3_12_","pt50",173);
+  //  Plots2Dist_pdf("running","LHC13","n3_12_","pt50",173);
+  //Plots2Dist_scale("running","LHC13","CT18NLO","n3_12_","pt50",173);
+  //Plots2Dist_mass("running","LHC13","CT18NLO","n3_12_","pt50",173);
 
 }

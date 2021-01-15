@@ -113,6 +113,84 @@ int scalevariations(TString pdf="CT18NLO",int iter=1000){
 }
 
 
+int PDFVarPole(TString scale="mu1", int bin_exclude=5){
+
+  std::vector<std::vector<double> >masa_pt;
+  std::vector<std::vector<double> >emasa_pt;
+
+  TString pt[4];
+  pt[0]=TString::Format("n3_%i_pt30",nbins);
+  pt[1]=TString::Format("n3_%i_pt50",nbins);
+  pt[2]=TString::Format("n3_%i_pt75",nbins);
+  pt[3]=TString::Format("n3_%i_pt100",nbins);
+
+  bintoremove=bin_exclude;
+
+  for(int j=0; j<4; j++) {
+
+    std::vector<double>masa;
+      
+    for(int i=0; i<3; i++) {
+	
+      if(i==0) parametrize_fitfunction("MMHT2014nlo68cl","LHC13", 168,10,1, "pole", "mu1",pt[j]);
+      if(i==1) parametrize_fitfunction("CT18NLO","LHC13", 168,10,1, "pole", "mu1",pt[j]);
+      if(i==2) parametrize_fitfunction("ABMP16_5_nlo","LHC13", 168,10,1, "pole", "mu1",pt[j]);
+      extraerdatos("CT18NLO","LHC13", 173,"pole","mu1",pt[j]);
+	
+      Fit(false);// if false, the Chi2 is defined as : pow(data - theory,2)/theory
+      //if true, then pow(data - theory,2)/error_data --> where the error data can be set in extraerdatos by assuming an efficency of reconstruction, for example.
+      masa.push_back(mass);
+    }
+    masa_pt.push_back(masa);
+  }
+
+  double x[4];
+  double yup[4];
+  double ydown[4];
+  double y[4];
+  
+  for(int j=0; j<masa_pt.size(); j++){
+    cout<<pt[j]<<" CT18NLO  " << masa_pt.at(j).at(1) <<" GeV;   MMHT2014nlo68cl "<<masa_pt.at(j).at(0)-masa_pt.at(j).at(1)<<" GeV;  ABMP16_5_nlo: "<<masa_pt.at(j).at(0)-masa_pt.at(j).at(2)<<" GeV"<<endl;
+
+    x[j]=30;
+    if(j>0) x[j]=x[j-1]+25;
+    if(j==1) x[j]=x[j-1]+20;
+    yup[j]=masa_pt.at(j).at(0)-masa_pt.at(j).at(1);
+    ydown[j]=masa_pt.at(j).at(0)-masa_pt.at(j).at(2);
+  }
+
+  TGraph* g_up = new TGraph(4,x,yup);
+  TGraph* g_down = new TGraph(4,x,ydown);
+
+  SetAtlasStyle();
+  gStyle->SetOptFit(0);
+  gStyle->SetOptStat(0);
+
+
+  TCanvas * canvas = new TCanvas("canvas","canvas",1000,800);
+  gPad->SetGridx();
+  gPad->SetGridy();
+
+  g_up->GetYaxis()->SetRangeUser(-5,5);
+  g_up->GetYaxis()->SetTitle("#Delta M_{t} [GeV]");
+  g_up->GetXaxis()->SetTitle("p_{T}-cut [GeV]");
+  g_up->SetLineColor(2);
+  g_up->SetLineWidth(2);
+  g_up->Draw("al");
+  g_down->SetLineColor(4);
+  g_down->SetLineWidth(2);
+  g_down->Draw("l");
+
+  TLegend *leg1 = new TLegend(0.6,0.7,0.98,0.9);//Variables
+  leg1->SetFillStyle(0);
+  leg1->AddEntry(g_up,"MMHT2014nlo68cl","l");
+  leg1->AddEntry(g_down,"ABMP16_5_nlo","l");
+  leg1->Draw();
+  
+  return 0;
+}
+
+
 
 int ScaleVarPole(TString pdf="CT18NLO", int bin_exclude=5){
 
@@ -485,16 +563,17 @@ int makeFit_pol(){
 
 
   //POLE
-  //nbins=24;
-  //for (int i=0; i<100; i++) bin_size[i]=1.2/double(nbins);
-  //  int scale=ScaleVarPole("CT18NLO",5);
-  //int scale2=ScaleVarPole2("CT18NLO");
+  nbins=24;
+  for (int i=0; i<100; i++) bin_size[i]=1.2/double(nbins);
+  int scale=ScaleVarPole("CT18NLO",5);
+  int scale2=ScaleVarPole2("CT18NLO");
+  int pdf=PDFVarPole("CT18NLO",5);
 
   //Running
-  nbins=12;
-  for (int i=0; i<100; i++) bin_size[i]=1.2/double(nbins);
-  int scale=ScaleVarRun("CT18NLO",9);
-  int scale2=ScaleVarRun2("CT18NLO");
+  //nbins=12;
+  //for (int i=0; i<100; i++) bin_size[i]=1.2/double(nbins);
+  //int scale=ScaleVarRun("CT18NLO",9);
+  //int scale2=ScaleVarRun2("CT18NLO");
 
   return 0;
 }
