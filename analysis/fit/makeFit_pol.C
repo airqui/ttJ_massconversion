@@ -167,7 +167,7 @@ int PDFVarPole(TString scale="mu1", int bin_exclude=5){
   gStyle->SetOptStat(0);
 
 
-  TCanvas * canvas = new TCanvas("canvas","canvas",1000,800);
+  TCanvas * canvas = new TCanvas("canvas_pdf","canvas_pdf",1000,800);
   gPad->SetGridx();
   gPad->SetGridy();
 
