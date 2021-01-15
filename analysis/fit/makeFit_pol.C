@@ -18,44 +18,6 @@
 #include "TMinuit.h"
 #include "Fit_pol.h"
 
-/*int scalevariations(int iter=1000){
-
-  double  masa_pt[4];
-  double  emasa_pt[4];
-
-  TString pt[4];
-  pt[0]="n3_12_pt30";
-  pt[1]="n3_12_pt50";
-  pt[2]="n3_12_pt75";
-  pt[3]="n3_12_pt100";
-
-  for(int j=0; j<4; j++) {
-      
-    parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu1",pt[j]);
-	
-    std::vector<double>masa_temp;
-    for(int k=0; k<iter; k++) {
-      TRandom *r = new TRandom1();
-      int seed=r->Integer((j+1)*(k+1)*99999);
-      extraerdatos_randomize_scale("CT10","LHC13", 173,"pole", "mu1","mu2","mu0.5",pt[j],seed);
-      Fit(false);
-      masa_temp.push_back(mass);
-    }
-	
-    double average=calc_average(masa_temp);
-    double std_dev=calc_std(masa_temp,average);
-    
-    masa_pt[j]=average;
-    emasa_pt[j]=std_dev;
-  
-  }
-
-   
-  for(int j=0; j<4; j++) cout<<pt[j]<<"  Mass (mu1)=" << masa_pt[j] <<"+-  "<<emasa_pt[j]<<" GeV "<<endl;
-  
-  return 0;
-  }*/
-
 
 double calc_average(std::vector<double>masa_temp )
 {
@@ -79,21 +41,91 @@ double calc_std(std::vector<double>masa_temp, double average )
 }
 
 
-int ScaleVarPole(){
+int scalevariations(TString pdf="CT18NLO",int iter=1000){
+
+  double  masa_pt[4];
+  double  emasa_pt[4];
+
+  TString pt[4];
+  pt[0]="n3_12_pt30";
+  pt[1]="n3_12_pt50";
+  pt[2]="n3_12_pt75";
+  pt[3]="n3_12_pt100";
+
+  for(int j=0; j<4; j++) {
+      
+    parametrize_fitfunction("CT18NLO","LHC13", 158,9,1, "running", "mu1",pt[j]);
+	
+    std::vector<double>masa_temp;
+    for(int k=0; k<iter; k++) {
+      TRandom *r = new TRandom1();
+      int seed=r->Integer((j+1)*(k+1)*99999);
+      extraerdatos_randomize_scale("CT18NLO","LHC13", 166,"running", "mu1","mu2","mu0.5",pt[j],seed);
+      Fit(false);
+      masa_temp.push_back(mass);
+    }
+	
+    double average=calc_average(masa_temp);
+    double std_dev=calc_std(masa_temp,average);
+    
+    masa_pt[j]=average;
+    emasa_pt[j]=std_dev;
+  
+  }
+
+   
+  for(int j=0; j<4; j++) cout<<pt[j]<<"  Mass (mu1)=" << masa_pt[j] <<"+-  "<<emasa_pt[j]<<" GeV "<<endl;
+
+  double x[4];
+ 
+  for(int j=0; j<4; j++){
+    x[j]=30;
+    if(j>0) x[j]=x[j-1]+25;
+    if(j==1) x[j]=x[j-1]+20;
+  }
+  
+  TGraph* g = new TGraph(4,x,emasa_pt);
+
+  SetAtlasStyle();
+  gStyle->SetOptFit(0);
+  gStyle->SetOptStat(0);
+
+
+  TCanvas * canvas = new TCanvas("canvas","canvas",1000,800);
+  gPad->SetGridx();
+  gPad->SetGridy();
+
+  g->GetYaxis()->SetRangeUser(-5,5);
+  g->GetYaxis()->SetTitle("#Delta M_{t} [GeV]");
+  g->GetXaxis()->SetTitle("p_{T}-cut [GeV]");
+  g->SetLineColor(1);
+  g->SetLineWidth(2);
+  g->Draw("al");
+
+  TLegend *leg1 = new TLegend(0.6,0.7,0.98,0.9);//Variables
+  leg1->SetFillStyle(0);
+  leg1->AddEntry(g,"Symmetrized error","l");
+  leg1->Draw();
+
+  
+  
+  return 0;
+}
+
+
+
+int ScaleVarPole(TString pdf="CT18NLO", int bin_exclude=5){
 
   std::vector<std::vector<double> >masa_pt;
   std::vector<std::vector<double> >emasa_pt;
 
   TString pt[4];
-  //  pt[0]="n3_12_pt30";
-  //pt[1]="n3_12_pt50";
-  // pt[2]="n3_12_pt75";
-  //pt[3]="n3_12_pt100";
+  pt[0]=TString::Format("n3_%i_pt30",nbins);
+  pt[1]=TString::Format("n3_%i_pt50",nbins);
+  pt[2]=TString::Format("n3_%i_pt75",nbins);
+  pt[3]=TString::Format("n3_%i_pt100",nbins);
 
-  pt[0]="n3_CMS13TeV_pt30";
-  pt[1]="n3_CMS13TeV_pt50";
-  pt[2]="n3_CMS13TeV_pt75";
-  pt[3]="n3_CMS13TeV_pt100";
+  bintoremove=bin_exclude;
 
   for(int j=0; j<4; j++) {
 
@@ -101,16 +133,13 @@ int ScaleVarPole(){
       
     for(int i=0; i<3; i++) {
 	
-      //if(i==0) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu0.5",pt[j]);
-      //if(i==1) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu1",pt[j]);
-      //if(i==2) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu2",pt[j]);
-      if(i==0) parametrize_fitfunctionCMS("CT10","LHC13", "pole", "mu0.5",pt[j]);
-      if(i==1) parametrize_fitfunctionCMS("CT10","LHC13", "pole", "mu1",pt[j]);
-      if(i==2) parametrize_fitfunctionCMS("CT10","LHC13", "pole", "mu2",pt[j]);
-      extraerdatos("CT10","LHC13", 172.5,"pole", "mu1",pt[j]);
+      if(i==0) parametrize_fitfunction(pdf,"LHC13", 168,10,1, "pole", "mu0.5",pt[j]);
+      if(i==1) parametrize_fitfunction(pdf,"LHC13", 168,10,1, "pole", "mu1",pt[j]);
+      if(i==2) parametrize_fitfunction(pdf,"LHC13", 168,10,1, "pole", "mu2",pt[j]);
+      extraerdatos(pdf,"LHC13", 173,"pole","mu1",pt[j]);
 	
-      //extraerdatos("CT10","LHC13", 173,"pole", "mu1",pt[j]);
-      Fit(false);
+      Fit(false);// if false, the Chi2 is defined as : pow(data - theory,2)/theory
+      //if true, then pow(data - theory,2)/error_data --> where the error data can be set in extraerdatos by assuming an efficency of reconstruction, for example.
       masa.push_back(mass);
     }
     masa_pt.push_back(masa);
@@ -169,15 +198,14 @@ int ScaleVarPole(){
 }
 
 
-int ScaleVarPole2(){
+int ScaleVarPole2(TString pdf="CT18NLO"){
 
   std::vector<std::vector<std::vector<double>> >masa_pt;
-
   TString pt[4];
-  pt[0]="n3_12_pt30";
-  pt[1]="n3_12_pt50";
-  pt[2]="n3_12_pt75";
-  pt[3]="n3_12_pt100";
+  pt[0]=TString::Format("n3_%i_pt30",nbins);
+  pt[1]=TString::Format("n3_%i_pt50",nbins);
+  pt[2]=TString::Format("n3_%i_pt75",nbins);
+  pt[3]=TString::Format("n3_%i_pt100",nbins);
 
   for(int j=0; j<4; j++) {
 
@@ -185,14 +213,14 @@ int ScaleVarPole2(){
       
     for(int i=0; i<3; i++) {
 	
-      if(i==0) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu0.5",pt[j]);
-      if(i==1) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu1",pt[j]);
-      if(i==2) parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu2",pt[j]);
-      extraerdatos("CT10","LHC13", 173,"pole", "mu1",pt[j]);
+      if(i==0) parametrize_fitfunction(pdf,"LHC13", 168,10,1, "pole", "mu0.5",pt[j]);
+      if(i==1) parametrize_fitfunction(pdf,"LHC13", 168,10,1, "pole", "mu1",pt[j]);
+      if(i==2) parametrize_fitfunction(pdf,"LHC13", 168,10,1, "pole", "mu2",pt[j]);
+      extraerdatos(pdf,"LHC13", 173,"pole", "mu1",pt[j]);
 
       std::vector<double >masa_bin;
 
-      for(int k=2; k<10; k++) {
+      for(int k=0; k<nbins; k++) {
 	bintoremove=k;
 	Fit(false);
 	masa_bin.push_back(mass);
@@ -210,7 +238,7 @@ int ScaleVarPole2(){
     double y[100];
     int n=0;
     for(int k=0; k<masa_pt.at(j).at(0).size(); k++) {
-	x[k]=k/10.+0.15;
+	x[k]=k;
 	y[k]=max(fabs(masa_pt.at(j).at(2).at(k)-masa_pt.at(j).at(0).at(k)),max(fabs(masa_pt.at(j).at(2).at(k)-masa_pt.at(j).at(1).at(k)),fabs(masa_pt.at(j).at(0).at(k)-masa_pt.at(j).at(1).at(k))))/2.;
 	n++;
     }
@@ -223,7 +251,7 @@ int ScaleVarPole2(){
   gStyle->SetOptStat(0);
 
 
-  TCanvas * canvas = new TCanvas("canvas","canvas",1000,800);
+  TCanvas * canvas = new TCanvas("canvas2","canvas2",1000,800);
   gPad->SetGridx();
   gPad->SetGridy();
 
@@ -237,7 +265,7 @@ int ScaleVarPole2(){
     if(j==0) {
       g_pt[j]->GetYaxis()->SetRangeUser(-5,5);
       g_pt[j]->GetYaxis()->SetTitle("#Delta M_{t} [GeV] (symmetrised)");
-      g_pt[j]->GetXaxis()->SetTitle("Excluded bin [#rho_{s}units]");
+      g_pt[j]->GetXaxis()->SetTitle("Excluded bin");
       g_pt[j]->Draw("al");
     } else g_pt[j]->Draw("l");
     leg1->AddEntry(g_pt[j],pt[j],"l");
@@ -248,33 +276,31 @@ int ScaleVarPole2(){
   return 0;
 }
 
-int ScaleVarRun(){
+int ScaleVarRun(TString pdf="CT18NLO", int bin_exclude=9){
 
   std::vector<std::vector<double> >masa_pt;
   std::vector<std::vector<double> >emasa_pt;
 
   TString pt[4];
-  pt[0]="n3_12_pt30";
-  pt[1]="n3_12_pt50";
-  pt[2]="n3_12_pt75";
-  pt[3]="n3_12_pt100";
+  pt[0]=TString::Format("n3_%i_pt30",nbins);
+  pt[1]=TString::Format("n3_%i_pt50",nbins);
+  pt[2]=TString::Format("n3_%i_pt75",nbins);
+  pt[3]=TString::Format("n3_%i_pt100",nbins);
 
-  bintoremove=9;
+  
+  bintoremove=bin_exclude;
   for(int j=0; j<4; j++) {
-
-    //    if(j>1) bintoremove=7;
-    if(j>2) bintoremove=8;
 
     std::vector<double>masa;
       
     for(int i=0; i<3; i++) {
 	
-      if(i==0) parametrize_fitfunction("CT10","LHC13", 158,10,1, "running", "mu0.5",pt[j]);
-      if(i==1) parametrize_fitfunction("CT10","LHC13", 158,10,1, "running", "mu1",pt[j]);
-      if(i==2) parametrize_fitfunction("CT10","LHC13", 158,10,1, "running", "mu2",pt[j]);
-      extraerdatos("CT10","LHC13", 173,"pole", "mu1",pt[j]);
+      if(i==0) parametrize_fitfunction(pdf,"LHC13", 158,10,1, "running", "mu0.5",pt[j]);
+      if(i==1) parametrize_fitfunction(pdf,"LHC13", 158,10,1, "running", "mu1",pt[j]);
+      if(i==2) parametrize_fitfunction(pdf,"LHC13", 158,10,1, "running", "mu2",pt[j]);
+      extraerdatos(pdf,"LHC13", 173,"pole", "mu1",pt[j]);
 	
-      //extraerdatos("CT10","LHC13", 173,"pole", "mu1",pt[j]);
+      //extraerdatos(pdf,"LHC13", 173,"pole", "mu1",pt[j]);
       Fit(false);
       masa.push_back(mass);
     }
@@ -333,15 +359,16 @@ int ScaleVarRun(){
   return 0;
 }
 
-int ScaleVarRun2(){
-
-  std::vector<std::vector<std::vector<double>> >masa_pt;
+int ScaleVarRun2(TString pdf="CT18NLO"){
 
   TString pt[4];
-  pt[0]="n3_12_pt30";
-  pt[1]="n3_12_pt50";
-  pt[2]="n3_12_pt75";
-  pt[3]="n3_12_pt100";
+  pt[0]=TString::Format("n3_%i_pt30",nbins);
+  pt[1]=TString::Format("n3_%i_pt50",nbins);
+  pt[2]=TString::Format("n3_%i_pt75",nbins);
+  pt[3]=TString::Format("n3_%i_pt100",nbins);
+
+  
+  std::vector<std::vector<std::vector<double>> >masa_pt;
 
   for(int j=0; j<4; j++) {
 
@@ -349,14 +376,14 @@ int ScaleVarRun2(){
       
     for(int i=0; i<3; i++) {
 	
-      if(i==0) parametrize_fitfunction("CT10","LHC13", 158,10,1, "running", "mu0.5",pt[j]);
-      if(i==1) parametrize_fitfunction("CT10","LHC13", 158,10,1, "running", "mu1",pt[j]);
-      if(i==2) parametrize_fitfunction("CT10","LHC13", 158,10,1, "running", "mu2",pt[j]);
-      extraerdatos("CT10","LHC13", 164,"running", "mu1",pt[j]);
+      if(i==0) parametrize_fitfunction(pdf,"LHC13", 158,10,1, "running", "mu0.5",pt[j]);
+      if(i==1) parametrize_fitfunction(pdf,"LHC13", 158,10,1, "running", "mu1",pt[j]);
+      if(i==2) parametrize_fitfunction(pdf,"LHC13", 158,10,1, "running", "mu2",pt[j]);
+      extraerdatos(pdf,"LHC13", 164,"running", "mu1",pt[j]);
 
       std::vector<double >masa_bin;
 
-      for(int k=2; k<10; k++) {
+      for(int k=0; k<nbins; k++) {
 	bintoremove=k;
 	Fit(false);
 	masa_bin.push_back(mass);
@@ -374,7 +401,7 @@ int ScaleVarRun2(){
     double y[100];
     int n=0;
     for(int k=0; k<masa_pt.at(j).at(0).size(); k++) {
-	x[k]=k/10.+0.15;
+	x[k]=k;
 	y[k]=max(fabs(masa_pt.at(j).at(2).at(k)-masa_pt.at(j).at(0).at(k)),max(fabs(masa_pt.at(j).at(2).at(k)-masa_pt.at(j).at(1).at(k)),fabs(masa_pt.at(j).at(0).at(k)-masa_pt.at(j).at(1).at(k))))/2.;
 	n++;
     }
@@ -387,7 +414,7 @@ int ScaleVarRun2(){
   gStyle->SetOptStat(0);
 
 
-  TCanvas * canvas = new TCanvas("canvas","canvas",1000,800);
+  TCanvas * canvas = new TCanvas("canvas2","canvas2",1000,800);
   gPad->SetGridx();
   gPad->SetGridy();
 
@@ -401,7 +428,7 @@ int ScaleVarRun2(){
     if(j==0) {
       g_pt[j]->GetYaxis()->SetRangeUser(-5,5);
       g_pt[j]->GetYaxis()->SetTitle("#Delta m_{t}(m_{t}) [GeV] (symmetrised)");
-      g_pt[j]->GetXaxis()->SetTitle("Excluded bin [#rho_{s}units]");
+      g_pt[j]->GetXaxis()->SetTitle("Excluded bin");
       g_pt[j]->Draw("al");
     } else g_pt[j]->Draw("l");
     leg1->AddEntry(g_pt[j],pt[j],"l");
@@ -414,26 +441,26 @@ int ScaleVarRun2(){
 
 
 
-int statvariations(int iter=1000){
+int statvariations(TString pdf="CT18NLO",int iter=1000){
 
   double  masa_pt[4];
   double  emasa_pt[4];
 
   TString pt[4];
-  pt[0]="n3_12_pt30";
-  pt[1]="n3_12_pt50";
-  pt[2]="n3_12_pt75";
-  pt[3]="n3_12_pt100";
-
+  pt[0]="n3_24_pt30";
+  pt[1]="n3_24_pt50";
+  pt[2]="n3_24_pt75";
+  pt[3]="n3_24_pt100";
+  
   for(int j=0; j<4; j++) {
       
-    parametrize_fitfunction("CT10","LHC13", 168,10,1, "pole", "mu1",pt[j]);
+    parametrize_fitfunction(pdf,"LHC13", 168,10,1, "pole", "mu1",pt[j]);
 	
     std::vector<double>masa_temp;
     for(int k=0; k<iter; k++) {
       TRandom *r = new TRandom1();
       int seed=r->Integer((j+1)*(k+1)*99999);
-      extraerdatos_randomize("CT10","LHC13", 173,"pole", "mu1",pt[j],seed);
+      extraerdatos_randomize(pdf,"LHC13", 173,"pole", "mu1",pt[j],seed);
       Fit(false);
       masa_temp.push_back(mass);
     }
@@ -455,10 +482,20 @@ int statvariations(int iter=1000){
 
 int makeFit_pol(){
 
-  // int statvar=statvariations(2000);
-  //int scalevar=scalevariations(5000);
-  // int scale=ScaleVarRun();
-  int scale=ScaleVarPole();
+
+
+  //POLE
+  //nbins=24;
+  //for (int i=0; i<100; i++) bin_size[i]=1.2/double(nbins);
+  //  int scale=ScaleVarPole("CT18NLO",5);
+  //int scale2=ScaleVarPole2("CT18NLO");
+
+  //Running
+  nbins=12;
+  for (int i=0; i<100; i++) bin_size[i]=1.2/double(nbins);
+  int scale=ScaleVarRun("CT18NLO",9);
+  int scale2=ScaleVarRun2("CT18NLO");
+
   return 0;
 }
 
